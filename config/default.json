@@ -1,0 +1,17 @@
+{
+	"port": 3333,
+	"youtube": {
+		"enable": true,
+		"templates": {
+			"title": "ESA2016: {game}",
+			"description": "Generic Description for {game} {category}.",
+			"keywords": "ESA,ESA2016"
+		},
+		"command": "echo",
+		"parameters": "'{game}' '{description}' '{keywords}'"
+	},
+	"esavods": {
+		"enable": false,
+		"server": "api.esavods.com"
+	}
+}
