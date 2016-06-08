@@ -2,13 +2,17 @@
 	"port": 3333,
 	"youtube": {
 		"enable": true,
+		"buffers": {
+			"beginning": 5,
+			"end": 120
+		},
 		"templates": {
-			"title": "ESA2016: {game}",
+			"title": "ESA2016: {game} ({category}) by {playersString}",
 			"description": "Generic Description for {game} {category}.",
-			"keywords": "ESA,ESA2016"
+			"keywords": "ESA,ESA2016,{game},{playersString}"
 		},
 		"command": "echo",
-		"parameters": "'{game}' '{description}' '{keywords}'"
+		"parameters": "--title \"{title}\" --desc \"{description}\" --keywords \"{keywords}\" -s {start} -e {end}"
 	},
 	"esavods": {
 		"enable": false,

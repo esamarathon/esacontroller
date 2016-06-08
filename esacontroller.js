@@ -13,6 +13,7 @@ app.use(body_parser.json());
 app.post("/speedcontrol-event", function(req, res) {
     var runData = req.body;
     //TODO "Massage" run-data into a more convenient format.
+    runData = simplify(runData);
 
     console.log(JSON.stringify(runData));
     if (config.has('youtube') && config.get('youtube.enable')) {
@@ -32,8 +33,8 @@ function uploadToYoutube(run) {
         title: format(conf.templates.title, run),
         description: format(conf.templates.description, run),
         keywords: format(conf.templates.keywords, run),
-        start: run.start_time,
-        end: run.end_time
+        start: Math.floor(run.start-(conf.buffers.beginning || 15)),
+        end: Math.floor(run.end+(conf.buffers.end || 15))
     };
     const command = buildCommand(conf.command, conf.parameters, youtube_metadata)
     exec(command, function(error, stdout) {
@@ -49,6 +50,24 @@ function uploadToYoutube(run) {
 function buildCommand(cmd, params, data) {
     params = format(params, data);
     return cmd + " " + params;
+}
+
+function simplify(data) {
+    data.twitters = data.players.map(function(player) {
+        return player.twitch.uri || "";
+    });
+
+    data.players = data.players.map(function(player) {
+        return player.names.international || "some dude";
+    })
+
+    data.playersString = data.players.reduce(function(total, player, i, array) {
+        if (i == array.length-1 && array.length > 1) return total + " and " + player;
+        if (i > 0) total += ", ";
+        return total + player;
+    }, "");
+
+    return data;
 }
 
 
