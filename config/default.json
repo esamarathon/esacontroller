@@ -17,5 +17,9 @@
 	"esavods": {
 		"enable": false,
 		"server": "api.esavods.com"
+	},
+	"speedcontrol": {
+		"host": "localhost",
+		"port": 9090
 	}
 }

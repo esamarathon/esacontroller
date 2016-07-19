@@ -3,10 +3,13 @@
 const express = require('express');
 var app = express();
 const body_parser = require('body-parser');
+const http = require('http');
+const Promise = require('promise');
 
 const exec = require('child_process').exec;
 const format = require('string-template');
 var config = require('config');
+var SpeedControl = require('./speedcontrol');
 
 app.use(body_parser.json());
 
@@ -17,9 +20,40 @@ app.post("/speedcontrol-event", function(req, res) {
 
     console.log(JSON.stringify(runData));
     if (config.has('youtube') && config.get('youtube.enable')) {
-        uploadToYoutube(runData)
+        uploadToYoutube(runData);   
     }
+
+    // One day I will include automatic submission to esavods.com
+    // This is not that day. 
+    // I want more data on what the script can return before I start thinking about parsing out the YT ID.
+
     res.status(200).json("OK");
+})
+
+app.post("/bigredbutton/:id", function(req, res) {
+    var pressData = req.body;
+    var speedcontrol = new SpeedControl(config.get('speedcontrol'));
+
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+        return res.status(403).json({
+            message: "Bad Id.",
+            id: req.params.id
+        });
+    }
+
+    speedcontrol.timers().then(function(data) {
+        console.log(data);
+        return speedcontrol.split(id);
+    }).then( function() {
+            res.status(501).json({
+                message: "NOT IMPLEMETED YET.",
+                id: id
+            })
+        }
+    );
+
+    
 })
 
 const listen_port = config.get('port');
