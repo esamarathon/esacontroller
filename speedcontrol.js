@@ -1,8 +1,13 @@
 'use strict';
+
 const Promise = require('promise');
 const body_parser = require('body-parser');
-const http = require('http');
 const format = require('string-template');
+const http = require('http');
+
+/*const http = require('http-debug').http
+http.debug = 2;*/
+
 
 const SpeedControl = function(config) {
 	this.host = config.host || 'speedcontrol.esamarathon.com';
@@ -12,12 +17,11 @@ const SpeedControl = function(config) {
 SpeedControl.prototype.call = function(options) {
     options.headers = options.headers || {};
     options.host = this.host;
-    options.port = this.port || 80;
+    options.port = this.port;
     options.headers['Content-Type'] = 'application/json';
-    console.log("Calling SpeedControl API: ", options)
 
     return new Promise(function (fulfill, reject) {
-        var req = http.request(options, res => {
+        var req = http.request(options, function(response) {
             var body = '';
             response.on('data', function(d) {
                 body += d;
@@ -30,7 +34,8 @@ SpeedControl.prototype.call = function(options) {
         req.on('error', (e) => {
             console.log("error", e);
             reject(e);
-        })
+        });
+        req.end();
     });
 };
 
