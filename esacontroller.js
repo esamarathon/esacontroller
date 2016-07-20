@@ -30,28 +30,60 @@ app.post("/speedcontrol-event", function(req, res) {
     res.status(200).json("OK");
 })
 
+var buttonInhibitor = {};
 app.post("/bigredbutton/:id", function(req, res) {
     var pressData = req.body;
     var speedcontrol = new SpeedControl(config.get('speedcontrol'));
 
     const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) {
+    if (isNaN(id) || id < 1) {
         return res.status(403).json({
             message: "Bad Id.",
             id: req.params.id
         });
     }
 
-    speedcontrol.timers().then(function(data) {
-        console.log(data);
-        return speedcontrol.split(id);
-    }).then( function() {
-            res.status(501).json({
-                message: "NOT IMPLEMETED YET.",
-                id: id
-            })
+    if (buttonInhibitor[id] == true) {
+        return res.status(401).json({
+            message: "To many presses in short time. Dropping.",
+            id: id
+        })
+    }
+
+    buttonInhibitor[id] = true;
+    setTimeout(function() {
+        buttonInhibitor[id] = false;
+    }, 2000);
+
+    speedcontrol.timers().then(function(timers) {
+        if (id > timers.length) {
+            return res.status(403).json({
+                message: "Player does not exist in this run.",
+                id: id,
+                players: timers.length
+            });
         }
-    );
+
+        console.log(timers[id-1]);
+        switch (timers[id-1].status) {
+            case "waiting": return speedcontrol.start();
+            case "running": return speedcontrol.split(id-1);
+            case "finished":
+                var reset = true;
+                timers.forEach(function(timer) {
+                    if (timer.status == running) reset = false;
+                });
+                if (reset) return speedcontrol.reset();
+            default: res.status(500).json("Invalid runner state."); return null;
+        }
+
+        
+    }).then( function(data) {
+        if (data != null)
+            res.json("OK");
+
+        return res.status(500);
+    });
 
     
 })
@@ -88,7 +120,11 @@ function buildCommand(cmd, params, data) {
 
 function simplify(data) {
     data.twitters = data.players.map(function(player) {
-        return player.twitch.uri || "";
+        if (player.twitch) {
+            return player.twitch.uri || "";
+        } else {
+            return "";
+        }
     });
 
     data.players = data.players.map(function(player) {
