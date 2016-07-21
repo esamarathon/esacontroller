@@ -14,7 +14,12 @@ var SpeedControl = require('./speedcontrol');
 app.use(body_parser.json());
 
 app.post("/speedcontrol-event", function(req, res) {
-    var runData = req.body;
+    var data = req.body;
+    if (data.key !== config.get("SHAREDKEY")) {
+        res.status(403).json("Wrong Key");
+    }
+    delete data.key;
+    var runData = data.run;
     //TODO "Massage" run-data into a more convenient format.
     runData = simplify(runData);
 
@@ -33,6 +38,11 @@ app.post("/speedcontrol-event", function(req, res) {
 var buttonInhibitor = {};
 app.post("/bigredbutton/:id", function(req, res) {
     var pressData = req.body;
+    if (pressData.key !== config.get("SHAREDKEY")) {
+        res.status(403).json("Wrong Key");
+    }
+    delete pressData.key;
+
     var speedcontrol = new SpeedControl(config.get('speedcontrol'));
 
     const id = parseInt(req.params.id, 10);

@@ -1,5 +1,6 @@
 {
 	"port": 3333,
+	"sharedkey": "ENTER_YOUR_SHARED_KEY_HERE",
 	"youtube": {
 		"enable": true,
 		"buffers": {
