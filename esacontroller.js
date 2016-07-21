@@ -64,25 +64,18 @@ app.post("/bigredbutton/:id", function(req, res) {
             });
         }
 
-        console.log(timers[id-1]);
         switch (timers[id-1].status) {
             case "waiting": return speedcontrol.start();
             case "running": return speedcontrol.split(id-1);
             case "finished":
-                var reset = true;
-                timers.forEach(function(timer) {
-                    if (timer.status == running) reset = false;
-                });
-                if (reset) return speedcontrol.reset();
-            default: res.status(500).json("Invalid runner state."); return null;
+                throw {code: 400, message: "You lazy b*stard. Reset the timer yourself."};
+            default: throw {message: "Invalid runner state."};
         }
-
         
+    }).catch(function(e) {
+        res.status(e.code || 500).json(e.message);
     }).then( function(data) {
-        if (data != null)
-            res.json("OK");
-
-        return res.status(500);
+        res.json("OK");
     });
 
     
