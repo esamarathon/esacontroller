@@ -11,7 +11,8 @@ http.debug = 2;*/
 
 const SpeedControl = function(config) {
 	this.host = config.host || 'speedcontrol.esamarathon.com';
-	this.port = config.port || '9090'
+	this.port = config.port || '9090';
+    this.key = config.key;
 }
 
 SpeedControl.prototype.call = function(options) {
@@ -19,6 +20,7 @@ SpeedControl.prototype.call = function(options) {
     options.host = this.host;
     options.port = this.port;
     options.headers['Content-Type'] = 'application/json';
+    options.headers['API-Key'] = this.key;
 
     return new Promise(function (fulfill, reject) {
         var req = http.request(options, function(response) {
