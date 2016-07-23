@@ -15,7 +15,8 @@ app.use(body_parser.json());
 
 app.post("/speedcontrol-event", function(req, res) {
     var runData = req.body;
-    if (req.get("API-Key") !== config.get("speedcontrol").key) {
+    if (config.get("speedcontrol").key != undefined && 
+        req.get("API-Key") !== config.get("speedcontrol").key) {
         res.status(403).json("Wrong Key");
         console.log("Blocked faulty keydata from SpeedControl. The key was ", req.get("API-key"));
         return;
@@ -24,7 +25,7 @@ app.post("/speedcontrol-event", function(req, res) {
     runData = simplify(runData);
 
     console.log(JSON.stringify(runData));
-    if (config.has('youtube') && config.get('youtube.enable')) {
+    if (config.has('youtube') && config.get('youtube').enable) {
         uploadToYoutube(runData);   
     }
 
@@ -38,7 +39,7 @@ app.post("/speedcontrol-event", function(req, res) {
 var buttonInhibitor = {};
 app.post("/bigredbutton/:id", function(req, res) {
     var pressData = req.body;
-    if (pressData.key !== config.get("sharedkey")) {
+    if (config.sharedkey != undefined && pressData.key !== config.get("sharedkey")) {
         res.status(403).json("Wrong Key");
         return;
     }
@@ -92,7 +93,7 @@ app.post("/bigredbutton/:id", function(req, res) {
     
 })
 
-const listen_port = config.get('port');
+const listen_port = config.port || 3333;
 app.listen(listen_port, function() {
     console.log("ESA Controller is listening on port", listen_port, ".")
 })
@@ -116,7 +117,7 @@ function uploadToYoutube(run) {
                 console.log("with output: ", stdout);
             }
         }); 
-    }, conf.delay);
+    }, conf.delay || 0);
 }
 
 function buildCommand(cmd, params, data) {
