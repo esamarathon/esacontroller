@@ -107,14 +107,16 @@ function uploadToYoutube(run) {
         end: Math.floor(run.end+(conf.buffers.end || 15))
     };
     const command = buildCommand(conf.command, conf.parameters, youtube_metadata)
-    exec(command, function(error, stdout) {
-        console.log("Executed command", command);
-        if (error) {
-            console.log(error)
-        } else {
-            console.log("with output: ", stdout);
-        }
-    });
+    setTimeout(function() {
+        exec(command, function(error, stdout) {
+            console.log("Executed command", command);
+            if (error) {
+                console.log(error)
+            } else {
+                console.log("with output: ", stdout);
+            }
+        }); 
+    }, conf.delay);
 }
 
 function buildCommand(cmd, params, data) {

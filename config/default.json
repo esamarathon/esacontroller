@@ -3,6 +3,7 @@
 	"sharedkey": "ENTER_YOUR_SHARED_KEY_HERE",
 	"youtube": {
 		"enable": true,
+		"delay": 6000,
 		"buffers": {
 			"beginning": 5,
 			"end": 120
