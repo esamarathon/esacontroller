@@ -75,7 +75,7 @@ app.post("/bigredbutton/:id", function(req, res) {
                 players: timers.length
             });
         }
-
+        console.log(timers[id-1]);
         switch (timers[id-1].status) {
             case "waiting": return speedcontrol.start();
             case "running": return speedcontrol.split(id-1);
@@ -126,23 +126,30 @@ function buildCommand(cmd, params, data) {
 }
 
 function simplify(data) {
-    data.twitters = data.players.map(function(player) {
+    const concat = function(join, final) {
+        return function(total, part, i, array) {
+            if (i == array.length-1 && array.length > 1) return total + final + link;
+            if (i > 0) total += join;
+            return total + link;
+        }
+    }
+
+    data.twitches = data.players.map(function(player) {
         if (player.twitch) {
             return player.twitch.uri || "";
         } else {
             return "";
         }
-    });
+    }).filter(function(player) {
+        if (player === "") {
+            return false;
+        }
+    }).reduce(concat("\n", "\n"), "");
 
     data.players = data.players.map(function(player) {
         return player.names.international || "some dude";
     })
-
-    data.playersString = data.players.reduce(function(total, player, i, array) {
-        if (i == array.length-1 && array.length > 1) return total + " and " + player;
-        if (i > 0) total += ", ";
-        return total + player;
-    }, "");
+    data.playersString = data.players.reduce(concat(", ", " and "), "");
 
     return data;
 }
