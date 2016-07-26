@@ -130,20 +130,24 @@ function simplify(data) {
         return function(total, part, i, array) {
             if (i == array.length-1 && array.length > 1) return total + final + link;
             if (i > 0) total += join;
-            return total + link;
+            return total + part;
         }
     }
 
     data.twitches = data.players.map(function(player) {
         if (player.twitch) {
-            return player.twitch.uri || "";
+            return {twitch: player.twitch.uri || "",
+                    name:   player.names.international
+                   };
         } else {
             return "";
         }
     }).filter(function(player) {
-        if (player === "") {
+        if (player.twitch === "") {
             return false;
         }
+    }).map(function(player) {
+        return player.name + " " + player.twitch;
     }).reduce(concat("\n", "\n"), "");
 
     data.players = data.players.map(function(player) {
