@@ -29,8 +29,12 @@ SpeedControl.prototype.call = function(options) {
                 body += d;
             });
             response.on('end', function() {
+                try {
                 var parsed = JSON.parse(body);
                 fulfill(parsed);
+                } catch (e) {
+                    reject(e);
+                }
             });
         });
         req.on('error', (e) => {
