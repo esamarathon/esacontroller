@@ -128,12 +128,12 @@ function buildCommand(cmd, params, data) {
 function simplify(data) {
     const concat = function(join, final) {
         return function(total, part, i, array) {
-            if (i == array.length-1 && array.length > 1) return total + final + link;
+            if (i == array.length-1 && array.length > 1) return total + final + part;
             if (i > 0) total += join;
             return total + part;
         }
     }
-
+    
     data.twitches = data.players.map(function(player) {
         if (player.twitch) {
             return {twitch: player.twitch.uri || "",
@@ -148,8 +148,8 @@ function simplify(data) {
         }
     }).map(function(player) {
         return player.name + " " + player.twitch;
-    }).reduce(concat("\n", "\n"), "");
-
+    }).reduce(concat("\\n", "\\n"), "");
+    
     data.players = data.players.map(function(player) {
         return player.names.international || "some dude";
     })
