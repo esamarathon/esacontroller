@@ -1,0 +1,35 @@
+@import 'util/util';
+@import 'settings';
+@import 'foundation';
+
+
+@include foundation-everything;
+
+.container {
+	background: url("/static/img/background.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+header {
+	background: $dark-gray;
+	border-bottom: 2px solid $light-gray;
+	margin-bottom: 1rem;
+}
+
+.logo {
+	span {
+		color: white;
+		vertical-align: middle;
+	}
+	img {
+		height: 4rem;
+	}
+}
+
+button.hamburger {
+	@include hamburger($white, $light-gray, 2rem, 2rem, rem-calc(6px), 3);
+	float: left;
+	margin: 1rem 0.5rem 0 0;
+	background-color: inherit;
+}

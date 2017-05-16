@@ -1,0 +1,60 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>ESAController</title>
+		<link rel="stylesheet" type="text/css" href="static/app.css">
+	</head>
+	<body>
+		<div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+			<button class="close-button" aria-label="Close menu" type="button" data-close>
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<nav>
+				<ul data-accordion-menu class="vertical menu">
+					<li><a href="/">Start</a></li>
+					<li>
+						<a href="#">Rack Control</a>
+						<ul class="menu vertical nested .is-active">
+							<li><a href="/">Basics</a></li>
+							<li><a href="/">Advanced</a></li>
+						</ul>
+					</li>
+					<li><a href="/">Settings</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="container off-canvas-content" data-off-canvas-content>
+			<header class="small-12 columns">
+				<!-- Button for opening the off-canvas -->
+				<button type="button" class="button hamburger" data-toggle="offCanvas">
+				</button>
+
+				<h1 class="logo">
+					<a href="/">
+						<img src="/static/img/esalogo.png"><span>Controller</span>
+					</a>
+				</h1>
+			</header>
+			<div class="row">
+				<div class="columns small-12 medium-8 ">
+					<%- body %>
+				</div>
+				<aside class="columns small-12 medium-4">
+					<%- asideArea %>
+				</aside>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="static/js/vendor/jquery.js"></script>
+		<script type="text/javascript" src="static/js/vendor/what-input.js"></script>
+		<script type="text/javascript" src="static/js/vendor/foundation.js"></script>
+
+		<script type="text/javascript" src="static/js/app.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

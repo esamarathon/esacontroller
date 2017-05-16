@@ -5,12 +5,20 @@
   "main": "esacontroller.js",
   "scripts": {
     "start": "node esacontroller.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass --include-path scss --include-path node_modules/foundation-sites/scss scss/main.scss static/app.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "build-js": "./bin/build-js"
   },
   "dependencies": {
     "body-parser": "^1.15.1",
     "config": "^1.21.0",
+    "ejs": "^2.5.6",
     "express": "^4.13.3",
+    "express-ejs-layouts": "^2.3.0",
+    "foundation-sites": "^6.3.1",
+    "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
     "promise": "^7.1.1",
     "string-template": "1.0.0"
   },

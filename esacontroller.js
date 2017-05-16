@@ -3,9 +3,15 @@
 const express = require('express');
 var config = require('config');
 
-
 var app = express();
+
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+
 app.use("/api", require("./routes/api"));
+app.use("/static", express.static(__dirname + '/static'));
+app.use("/", require("./routes/gui"));
 
 
 

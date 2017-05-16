@@ -1,0 +1,5 @@
+rm -rf static/js/vendor
+mkdir -p static/js/vendor
+cp node_modules/foundation-sites/dist/js/foundation.js static/js/vendor/foundation.js
+cp node_modules/jquery/dist/jquery.js static/js/vendor/jquery.js
+cp node_modules/what-input/dist/what-input.js static/js/vendor/what-input.js

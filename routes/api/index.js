@@ -22,7 +22,7 @@ app.post("/speedcontrol-event", function(req, res) {
 
     console.log(JSON.stringify(runData));
     if (config.has('youtube') && config.get('youtube').enable) {
-        uploadToYoutube(runData);   
+        youtube.uploadToYoutube(runData);   
     }
 
     // One day I will include automatic submission to esavods.com
@@ -33,7 +33,7 @@ app.post("/speedcontrol-event", function(req, res) {
 })
 
 app.get("/bigredbutton/:id", function(req, res) {
-    res.json({status: "OK"});
+    res.json({status: "NOT IMPLEMENTED"});
 });
 
 var buttonInhibitor = {};
