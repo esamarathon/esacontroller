@@ -1,0 +1,59 @@
+<div class="card">
+	<header>
+		<h3>OSSC</h3>
+	</header>
+	<form method="POST" action="/rack/ossc">
+		<fieldset>
+			<label>Input</label>
+			<select name="input">
+				<option selected >No change</option>
+				<option>RGBS</option>
+				<option>RGSB</option>
+				<option>RGBHV</option>
+				<option>RGBH</option>
+			</select>
+		</fieldset>
+
+		<fieldset>
+			<label>Interlace Passthrough</label>
+			<input type="checkbox" name="interlacePassthrough">
+		</fieldset>
+
+		<fieldset class="fieldset">
+			<legend>Line Multipler</legend>
+		
+			<label>Line x2</label>
+			<input type="radio" name="lineMultiplier" value="2">
+			<br />
+
+			<label>Line x3</label>
+			<input type="radio" name="lineMultiplier" value="3">
+			<br />
+
+			<label>Line x4</label>
+			<input type="radio" name="lineMultiplier" value="4">
+			<br />
+
+			<label>Line x5</label>
+			<input type="radio" name="lineMultiplier" value="5">
+
+		</fieldset>
+
+		<!--
+		public Boolean interlacePassthrough;
+		public Boolean lineTripple;
+		-->
+
+		<input type="submit" value="Send"/>
+	</form>
+
+	<%-  /*   %>
+	<hr>
+
+	<button onclick="$('#ossc_dangerous').toggle()" class="warning">Show dangerous operations</button>
+	<div id="ossc_dangerous" class="callout warning dangerous">
+		<h5 class="capital">warning: dangerous operations. beware!</h5>
+	</div>
+
+	<%- */ %>
+</div>
