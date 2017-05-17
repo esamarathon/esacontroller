@@ -1,0 +1,44 @@
+<div class="card">
+	<header>
+		<h3>DVDO VP50</h3>
+	</header>
+	<form method="POST" action="/rack/vp50">
+		<fieldset>
+			<label>Preset</label>
+			<select name="preset">
+				<option>No change</option>
+				<% for (var i = 1; i < 13; i++) { %>
+					<option><%= i %></option>
+				<% } %>
+			</select>
+		</fieldset>
+
+		<fieldset>
+			<label>Input</label>
+			<select name="input">
+				<option selected >No change</option>
+				<option>RGBS</option>
+				<option>RGSB</option>
+				<option>RGBHV</option>
+				<option>RGBH</option>
+			</select>
+		</fieldset>
+
+		<!--
+		public Integer preset;
+		public String input;
+		-->
+
+		<input type="submit" value="Send"/>
+	</form>
+
+	<%-  /*   %>
+	<hr>
+
+	<button onclick="$('#vp50_dangerous').toggle()" class="warning">Show dangerous operations</button>
+	<div id="vp50_dangerous" class="callout warning dangerous">
+		<h5 class="capital">warning: dangerous operations. beware!</h5>
+	</div>
+
+	<%- */ %>
+</div>
