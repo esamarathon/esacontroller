@@ -33,3 +33,44 @@ button.hamburger {
 	margin: 1rem 0.5rem 0 0;
 	background-color: inherit;
 }
+
+.card {
+	padding: 0.5rem;
+	color: $black;
+
+	h4,h5,h6,legend {
+		color: $black;
+	}
+
+	header {
+		margin: -0.5rem;
+		margin-bottom: 0.5rem;
+		padding-left: 0.5rem;
+
+	}
+
+	legend {
+		background-color: inherit;
+	}
+}
+
+.warning h4 {
+	color: $black;
+}
+
+button {
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+}
+
+button.warning {
+	background-color: darken($warning-color, 0.1);
+}
+
+.dangerous {
+	display: none;
+}
+
+.capital {
+	text-transform: capitalize;
+}

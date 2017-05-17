@@ -1,0 +1,33 @@
+<div class="card">
+	<header>
+		<h3>Crosspoint</h3>
+	</header>
+	<form method="POST" action="/rack/crosspoint">
+		<fieldset>
+			<label>Preset</label>
+			<select name="preset">
+				<option>No change</option>
+				<% for (var i = 1; i < 13; i++) { %>
+					<option><%= i %></option>
+				<% } %>
+			</select>
+		</fieldset>
+
+		<input type="submit" value="Send"/>
+	</form>
+
+	<hr>
+
+	<div class="callout">
+		Insert form for tie changes here.
+		This tricky to do. Might need to do some fancy javascripting here.
+	</div>
+
+	<button onclick="$('#crosspoint_dangerous').toggle()" class="warning">Show dangerous operations</button>
+	<div id="crosspoint_dangerous" class="callout warning dangerous">
+		<h5 class="capital">warning: dangerous operations. beware!</h5>
+		<form method="POST" action="/rack/crosspoint/reset">
+			<input type="submit" value="Reset Ties"/>
+		</form>
+	</div>
+</div>
