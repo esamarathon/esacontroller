@@ -1,0 +1,15 @@
+<%  if (!!locals.success) {%>
+	<div class="columns small-12 ">
+		<div class="callout success">
+			<%- locals.success || "" %>
+		</div>
+	</div>
+<% } %>
+
+<%  if (!!locals.error) {%>
+	<div class="columns small-12 ">
+		<div class="callout alert">
+			<%- locals.error || "" %>
+		</div>
+	</div>
+<% } %>

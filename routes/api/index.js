@@ -2,6 +2,7 @@ const express = require('express');
 const body_parser = require('body-parser');
 const http = require('http');
 const Promise = require('promise');
+var config = require('config');
 const youtube = require('../../youtube');
 var SpeedControl = require('../../speedcontrol');
 

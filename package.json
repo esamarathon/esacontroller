@@ -5,7 +5,9 @@
   "main": "esacontroller.js",
   "scripts": {
     "start": "node esacontroller.js",
+    "debug": "node --inspect esacontroller.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon -e js -x \"npm run debug\"",
     "build-css": "node-sass --include-path scss --include-path node_modules/foundation-sites/scss scss/main.scss static/app.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "build-js": "./bin/build-js"

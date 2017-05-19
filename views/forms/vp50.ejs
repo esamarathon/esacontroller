@@ -1,14 +1,15 @@
-<div class="card">
+<div class="card" id="vp50">
 	<header>
 		<h3>DVDO VP50</h3>
 	</header>
 	<form method="POST" action="/rack/vp50">
+		<input type="hidden" name="rack" value="1">
 		<fieldset>
 			<label>Preset</label>
 			<select name="preset">
 				<option>No change</option>
 				<% for (var i = 1; i < 13; i++) { %>
-					<option><%= i %></option>
+					<option <%= i === current.vp50.preset ? "selected" : "" %>><%= i %></option>
 				<% } %>
 			</select>
 		</fieldset>
@@ -17,10 +18,12 @@
 			<label>Input</label>
 			<select name="input">
 				<option selected >No change</option>
-				<option>RGBS</option>
-				<option>RGSB</option>
-				<option>RGBHV</option>
-				<option>RGBH</option>
+				<% 
+					const options = [1, 2, 3, 4];
+					for (let opt of options) {
+				%>
+				<option <%= opt === current.vp50.input ? "selected" : "" %>><%= opt %></option>
+				<% } %>
 			</select>
 		</fieldset>
 
@@ -31,14 +34,4 @@
 
 		<input type="submit" value="Send"/>
 	</form>
-
-	<%-  /*   %>
-	<hr>
-
-	<button onclick="$('#vp50_dangerous').toggle()" class="warning">Show dangerous operations</button>
-	<div id="vp50_dangerous" class="callout warning dangerous">
-		<h5 class="capital">warning: dangerous operations. beware!</h5>
-	</div>
-
-	<%- */ %>
 </div>

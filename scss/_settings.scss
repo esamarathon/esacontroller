@@ -50,8 +50,8 @@ $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
-  primary: #1779ba,
-  secondary: #767676,
+  primary: rgb(118,63,142),
+  secondary:rgb(231,192,26),
   success: #3adb76,
   warning: #ffae00,
   alert: #cc4b37,
@@ -443,7 +443,7 @@ $offcanvas-reveal-zindex: 1;
 $offcanvas-transition-length: 0.5s;
 $offcanvas-transition-timing: ease;
 $offcanvas-fixed-reveal: true;
-$offcanvas-exit-background: rgba($white, 0.25);
+$offcanvas-exit-background: rgba($white, 0);
 $maincontent-class: 'off-canvas-content';
 
 // 25. Orbit

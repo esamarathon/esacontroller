@@ -1,0 +1,17 @@
+Lorem Ipsum
+
+<ul>
+<% 
+if (debug || null) {
+for (let x in debug ) {%>
+	<li><%= x %> = <%= debug[x] %></li>
+<% }} %>
+</ul>
+
+Preset : <%= preset %>
+
+<%- contentFor('asideArea') %>
+
+<div class="callout secondary">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada tincidunt risus. Cras ac nibh neque. Integer ac laoreet lacus. Phasellus lectus eros, aliquam ut purus ac, rutrum semper nisl. Aenean elementum feugiat condimentum. Sed quis ipsum eros. Morbi odio turpis, sodales eu dui in, tincidunt efficitur dolor. Pellentesque nec lectus eget nulla euismod egestas sed eget quam.
+</div>

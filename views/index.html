@@ -1,26 +1,24 @@
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada tincidunt risus. Cras ac nibh neque. Integer ac laoreet lacus. Phasellus lectus eros, aliquam ut purus ac, rutrum semper nisl. Aenean elementum feugiat condimentum. Sed quis ipsum eros. Morbi odio turpis, sodales eu dui in, tincidunt efficitur dolor. Pellentesque nec lectus eget nulla euismod egestas sed eget quam.
 
 <!-- Replace this with Flexbox magic to allow better balanced sides in large mode, but more important controls at the top in mobile mode. -->
-<div class="row controls">
-
-
-	<div class="columns small-12 medium-6">
+<div class="controls">
+	<div class="card rack-selection">
+		<fieldset class="fieldset">
+			<legend>Rack</legend>
+			<label style="margin-right: 0.5rem;">All racks</label>
+			<input type="checkbox" id="rack-selector-all" checked="checked">
+			<input type="number" value="1" min="1" max="4" id="rack-selector">
+		</fieldset>
+	</div>
 		<%- include('forms/crosspoint') %>
 		<%- include('forms/in1606') %>
-		
-		
-	</div>
-
-	<div class="columns small-12 medium-6">
 		<%- include('forms/ossc') %>
 		<%- include('forms/vp50') %>
 		
-	</div>
-
 </div>
 
 <%- contentFor('asideArea') %>
-<div class="callout">
+<div class="callout secondary">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada tincidunt risus. Cras ac nibh neque. Integer ac laoreet lacus. Phasellus lectus eros, aliquam ut purus ac, rutrum semper nisl. Aenean elementum feugiat condimentum. Sed quis ipsum eros. Morbi odio turpis, sodales eu dui in, tincidunt efficitur dolor. Pellentesque nec lectus eget nulla euismod egestas sed eget quam.
 </div>
 

@@ -5,15 +5,14 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<title>ESAController</title>
-		<link rel="stylesheet" type="text/css" href="static/app.css">
+		<link rel="stylesheet" type="text/css" href="/static/app.css">
 	</head>
 	<body>
 		<div class="off-canvas position-left" id="offCanvas" data-off-canvas>
 			<button class="close-button" aria-label="Close menu" type="button" data-close>
 				<span aria-hidden="true">&times;</span>
 			</button>
-			<%- include('navigation') %>
-			S
+			<%- include('partials/navigation') %>
 		</div>
 		<div class="container off-canvas-content" data-off-canvas-content>
 			<header class="small-12 columns">
@@ -28,6 +27,7 @@
 				</h1>
 			</header>
 			<div class="row">
+				<%- include('partials/messages') %>
 				<div class="columns small-12 medium-8 ">
 					<%- body %>
 				</div>
@@ -35,13 +35,22 @@
 					<%- asideArea %>
 				</aside>
 			</div>
+
+			<footer>
+				<div class="row">
+					<%- include('partials/footerlinks')%>
+				</div>
+				<div class="row">
+					Design by Johan "Zephyyrr" Fogelström 2017.
+				</div>
+			</footer>
 		</div>
 
-		<script type="text/javascript" src="static/js/vendor/jquery.js"></script>
-		<script type="text/javascript" src="static/js/vendor/what-input.js"></script>
-		<script type="text/javascript" src="static/js/vendor/foundation.js"></script>
+		<script type="text/javascript" src="/static/js/vendor/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/vendor/what-input.js"></script>
+		<script type="text/javascript" src="/static/js/vendor/foundation.js"></script>
 
-		<script type="text/javascript" src="static/js/app.js"></script>
+		<script type="text/javascript" src="/static/js/app.js"></script>
 		<script>
 			$(document).foundation();
 		</script>

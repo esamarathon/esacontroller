@@ -1,14 +1,15 @@
-<div class="card">
+<div class="card" id="in1606">
 	<header>
 		<h3>IN1606</h3>
 	</header>
 	<form method="POST" action="/rack/in1606">
+		<input type="hidden" name="rack" value="1">
 		<fieldset>
 			<label>Input</label>
 			<select name="input">
-				<option selected >No change</option>
-				<% for (var i = 1; i < 9; i++) { %>
-					<option><%= i %></option>
+				<option>No change</option>
+				<% for (var i = 1; i < 7; i++) { %>
+					<option <%= i == current.in1696.input ? "selected" : "" %>><%= i %></option>
 				<% } %>
 			</select>
 		</fieldset>
@@ -16,16 +17,24 @@
 		<fieldset class="fieldset">
 			<legend>Cropping</legend>
 			<label>Width</label>
-			<input type="number" name="width">
+			<input type="number" 
+				name="width" min=10 max=4096
+				value=<%= current.in1696.width %>> 
 
 			<label>Height</label>
-			<input type="number" name="height">
+			<input type="number" 
+				name="height" min=10 max=2400
+				value=<%= current.in1696.height %>>
 
 			<label>Horizontal Shift</label>
-			<input type="number" name="horizontalShift">
+			<input type="number" 
+				name="horizontalShift" min=-2048 max=2048
+				value=<%= current.in1696.hshift %>>
 
 			<label>Vertical Shift</label>
-			<input type="number" name="verticalShift">
+			<input type="number" 
+				name="verticalShift" min=-1200 max=1200
+				value=<%= current.in1696.vshift %>>
 		</fieldset>
 
 		<!--
@@ -35,15 +44,4 @@
 
 		<input type="submit" value="Send"/>
 	</form>
-
-		<%-  /*   %>
-
-	<hr>
-
-	<button onclick="$('#in1606_dangerous').toggle()" class="warning">Show dangerous operations</button>
-	<div id="in1606_dangerous" class="callout warning dangerous">
-		<h5 class="capital">warning: dangerous operations. beware!</h5>
-	</div>
-
-		<%-  */   %>
 </div>

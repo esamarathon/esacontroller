@@ -1,41 +1,44 @@
-<div class="card">
+<div class="card" id="ossc">
 	<header>
 		<h3>OSSC</h3>
 	</header>
 	<form method="POST" action="/rack/ossc">
+		<input type="hidden" name="rack" value="1">
 		<fieldset>
 			<label>Input</label>
 			<select name="input">
-				<option selected >No change</option>
-				<option>RGBS</option>
-				<option>RGSB</option>
-				<option>RGBHV</option>
-				<option>RGBH</option>
+				<option>No change</option>
+				<% 
+					const options = ["RGBs", "RGsB", "RGBHV", "RGBH"];
+					for (let opt of options) {
+				%>
+				<option <%= opt.toLowerCase() === current.ossc.input.toLowerCase() ? "selected" : "" %>><%= opt %></option>
+				<% } %>
 			</select>
 		</fieldset>
 
 		<fieldset>
 			<label>Interlace Passthrough</label>
-			<input type="checkbox" name="interlacePassthrough">
+			<input type="checkbox" name="interlacePassthrough" <%= current.ossc.interlacePassthrough ? "checked" : "" %>>
 		</fieldset>
 
 		<fieldset class="fieldset">
 			<legend>Line Multipler</legend>
+
+			<%
+				const multiplers = [2,3,4,5];
+				for (let mult of multiplers) {
+			%>
 		
-			<label>Line x2</label>
-			<input type="radio" name="lineMultiplier" value="2">
+			<label>Line x<%= mult%></label>
+			<input 
+				type="radio" 
+				name="lineMultiplier" 
+				value="<%= mult%>"
+				<%= mult == current.ossc.lineMultiplier ? "checked" : "" %>>
 			<br />
 
-			<label>Line x3</label>
-			<input type="radio" name="lineMultiplier" value="3">
-			<br />
-
-			<label>Line x4</label>
-			<input type="radio" name="lineMultiplier" value="4">
-			<br />
-
-			<label>Line x5</label>
-			<input type="radio" name="lineMultiplier" value="5">
+			<% } %>
 
 		</fieldset>
 
@@ -46,14 +49,4 @@
 
 		<input type="submit" value="Send"/>
 	</form>
-
-	<%-  /*   %>
-	<hr>
-
-	<button onclick="$('#ossc_dangerous').toggle()" class="warning">Show dangerous operations</button>
-	<div id="ossc_dangerous" class="callout warning dangerous">
-		<h5 class="capital">warning: dangerous operations. beware!</h5>
-	</div>
-
-	<%- */ %>
 </div>

@@ -13,8 +13,30 @@
 
 header {
 	background: $dark-gray;
-	border-bottom: 2px solid $light-gray;
+	border-bottom: 2px solid $secondary-color;
 	margin-bottom: 1rem;
+}
+
+body {
+	footer {
+		background-color: $primary-color;
+		border-top: 2px solid $secondary-color;
+		margin-top: 1rem;
+		padding: 0.5rem;
+		color: $white;
+
+		a {
+			color: $white;
+		}
+
+		a:hover {
+			color: $medium-gray;
+		}
+
+		a:visited {
+			color: $light-gray;
+		}
+	}
 }
 
 .logo {
@@ -43,6 +65,7 @@ button.hamburger {
 	}
 
 	header {
+		background: $primary-color;
 		margin: -0.5rem;
 		margin-bottom: 0.5rem;
 		padding-left: 0.5rem;
@@ -52,6 +75,10 @@ button.hamburger {
 	legend {
 		background-color: inherit;
 	}
+}
+
+.callout.secondary {
+	background: $secondary-color;
 }
 
 .warning h4 {
@@ -77,6 +104,39 @@ button.warning {
 
 .controls {
 	margin-top: 1rem;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: flex-start;
+
+	.card {
+		min-width: 14rem;
+		flex-basis: 49%;
+		margin: 0.2rem;
+
+		&.rack-selection {
+			flex-basis: 100%;
+		}
+	}
+
+	#crosspoint {
+		order: 1;
+	}
+
+	#in1606 {
+		order: 2;
+	}
+
+	#ossc {
+		order: 3;
+	}
+
+	#vp50 {
+		order: 4;
+	}
 }
 
 label {
