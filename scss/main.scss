@@ -112,6 +112,10 @@ button.warning {
 	align-items: stretch;
 	align-content: flex-start;
 
+	.rack-selection legend {
+		text-align: center;
+	}
+
 	.card {
 		min-width: 14rem;
 		height: 97%;
@@ -130,11 +134,11 @@ button.warning {
 	}
 
 	#ossc {
-		order: 0;
+		order: 15;
 	}
 
 	#vp50 {
-		order: 15;
+		order: 1;
 	}
 }
 

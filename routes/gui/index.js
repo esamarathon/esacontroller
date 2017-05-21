@@ -10,6 +10,7 @@ router.use(expressLayouts);
 
 router.get("/", function (req, res) {
 	res.render('index.html', {
+		presets: getPresets(),
 		current: currentStatus()
 	});
 })
@@ -69,6 +70,7 @@ function deviceForm(device, validation) {
 		updateStatusCache(device, params)
 
 		res.render('index.html', {
+			presets: getPresets(),
 			current: currentStatus(),
 			success: `Successfully changed ${device} settings.`
 		});
@@ -136,6 +138,20 @@ function updateStatusCache(device, params) {
 	statusCache[device] = Object.assign(statusCache[device] || {}, params);
 }
 
+
+function getPresets() {
+	//Temporary list.
+	return [
+		"NES",
+		"NTSC SNES", 
+		"PAL SNES", 
+		"Genesis", 
+		"Mega Drive", 
+		"Wii", 
+		"PS3", 
+		"PC"
+	]
+}
 
 
 module.exports = router;
