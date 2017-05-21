@@ -3,7 +3,7 @@
 @import 'foundation';
 
 
-@include foundation-everything;
+@include foundation-everything(true);
 
 .container {
 	background: url("/static/img/background.png");
@@ -114,8 +114,7 @@ button.warning {
 
 	.card {
 		min-width: 14rem;
-		flex-basis: 49%;
-		margin: 0.2rem;
+		height: 97%;
 
 		&.rack-selection {
 			flex-basis: 100%;
@@ -123,19 +122,19 @@ button.warning {
 	}
 
 	#crosspoint {
-		order: 1;
+		order: 0;
 	}
 
 	#in1606 {
-		order: 2;
+		order: 10;
 	}
 
 	#ossc {
-		order: 3;
+		order: 0;
 	}
 
 	#vp50 {
-		order: 4;
+		order: 15;
 	}
 }
 

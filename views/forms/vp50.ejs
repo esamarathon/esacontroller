@@ -7,7 +7,7 @@
 		<fieldset>
 			<label>Preset</label>
 			<select name="preset">
-				<option>No change</option>
+				<option value="">No change</option>
 				<% for (var i = 1; i < 13; i++) { %>
 					<option <%= i === current.vp50.preset ? "selected" : "" %>><%= i %></option>
 				<% } %>
@@ -17,12 +17,31 @@
 		<fieldset>
 			<label>Input</label>
 			<select name="input">
-				<option selected >No change</option>
+				<option selected value="">No change</option>
 				<% 
-					const options = [1, 2, 3, 4];
+					const options = [
+						"Composite1", 
+						"Composite2", 
+						"S-Video1", 
+						"S-Video2",
+						"Component1",
+						"Component2",
+						"Component3",
+						"HDMI1",
+						"HDMI2",
+						"HDMI3",
+						"HDMI4",
+						"SDI1",
+						"SDI2",
+						"AUTO",
+					];
+					
 					for (let opt of options) {
 				%>
-				<option <%= opt === current.vp50.input ? "selected" : "" %>><%= opt %></option>
+					<option value="<%=opt.toLowerCase()%>" 
+						<%= opt.toLowerCase() === current.ossc.input.toLowerCase() ? "selected" : "" %>>
+						<%= opt %>
+					</option>
 				<% } %>
 			</select>
 		</fieldset>

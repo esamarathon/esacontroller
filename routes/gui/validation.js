@@ -1,5 +1,3 @@
-
-
 exports.validateCrosspointForm = function (body) {
 	const res = {};
 	res.rack = isRack(body.rack);
@@ -7,15 +5,56 @@ exports.validateCrosspointForm = function (body) {
 	return res;
 }
 
+exports.validateCrosspointDangerousForm = function (body) {
+	const res = {};
+	res.rack = isRack(body.rack);
+	res.resetTies = isBoolean(body.resetTies);
+	return res;
+}
+
 exports.validateIN1606Form = function (body) {
 	const res = {};
 	res.rack = isRack(body.rack);
 
-	res.input = isNumber(body.input, 1, 6);
+	res.input = isNumberOpt(body.input, 1, 6);
 	res.width = isNumberOpt(body.width, 10, 4096);
 	res.height = isNumberOpt(body.height, 10, 2400);
-	res.hshift = isNumberOpt(body.hshift, -2048, 2048);
-	res.vshift = isNumberOpt(body.vshift, -1200, 1200);
+	res.horizontalShift = isNumberOpt(body.horizontalShift, -2048, 2048);
+	res.verticalShift = isNumberOpt(body.verticalShift, -1200, 1200);
+
+	if (!(res.input || res.width || res.height || res.horizontalShift || res.verticalShift)) {
+		throw "No change."
+	}
+
+	return res;
+}
+
+exports.validateOSSCForm = function (body) {
+	const res = {};
+	res.rack = isRack(body.rack);
+
+	res.input = isString(body.input);
+	res.interlacePassthrough = isBoolean(body.interlacePassthrough);
+	res.lineMultiplier = isNumberOpt(body.lineMultiplier, 1, 5);
+
+	if (!(res.input || res.interlacePassthrough || res.lineMultiplier)) {
+		throw "No change."
+	}
+
+	return res;
+
+}
+
+exports.validateVP50Form = function (body) {
+	const res = {};
+	res.rack = isRack(body.rack);
+
+	res.preset = isNumberOpt(body.preset);
+	res.input = isString(body.input);
+
+	if (!(res.preset || res.input)) {
+		throw "No change."
+	}
 
 	return res;
 }
@@ -29,9 +68,17 @@ function isRack(value) {
 	return isNumber(value);
 }
 
+function isString(value) {
+	if (typeof value === "string") {
+		return value;
+	} else {
+		throw "Not a valid string.";
+	}
+}
+
 function isNumber(value, min, max) {
-	num = Number(value || Number.NaN);
-	if (Number.isNaN(rack) || rack > max || rack < min) {
+	const num = Number(value || Number.NaN);
+	if (Number.isNaN(value) || value > (max || 999999) || value < (min || -999999)) {
 		throw `Value is out of range (${min}-${max}).`;
 	}
 
@@ -40,7 +87,7 @@ function isNumber(value, min, max) {
 
 function isNumberOpt(value, min, max) {
 	num = Number(value || Number.NaN);
-	if (Number.isNaN(rack) || rack > max || rack < min) {
+	if (Number.isNaN(value) || value > (max || 999999) || value < (min || -999999)) {
 		return null;
 	}
 
@@ -52,4 +99,9 @@ function isNotEmpty(value, onerror) {
 	if (value == "") {
 		throw onerror || "No value";
 	}
+	return value;
+}
+
+function isBoolean(value) {
+	return !!value;
 }

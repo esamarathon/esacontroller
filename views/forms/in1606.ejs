@@ -7,34 +7,90 @@
 		<fieldset>
 			<label>Input</label>
 			<select name="input">
-				<option>No change</option>
+				<option value="">No change</option>
 				<% for (var i = 1; i < 7; i++) { %>
-					<option <%= i == current.in1696.input ? "selected" : "" %>><%= i %></option>
+					<option <%= i == current.in1606.input ? "selected" : "" %>><%= i %></option>
 				<% } %>
 			</select>
 		</fieldset>
 
-		<fieldset class="fieldset">
-			<legend>Cropping</legend>
-			<label>Width</label>
-			<input type="number" 
-				name="width" min=10 max=4096
-				value=<%= current.in1696.width %>> 
+		<fieldset class="fieldset" id="in1606_cropping">
+			<legend onclick="$('#in1606_cropping .row').toggle()">Cropping</legend>
 
-			<label>Height</label>
-			<input type="number" 
-				name="height" min=10 max=2400
-				value=<%= current.in1696.height %>>
+			<div class="row">
+				<div class="columns">
+					<label>Width</label>
+					<input type="number" 
+						name="width" 
+						min=10 max=4096
+						id="in1606_width"
+						value=<%= current.in1606.width %>>
+					<div class="slider" 
+						data-slider 
+						data-initial-start=<%= current.in1606.width %>
+						data-start="10"
+						data-end="4096">
 
-			<label>Horizontal Shift</label>
-			<input type="number" 
-				name="horizontalShift" min=-2048 max=2048
-				value=<%= current.in1696.hshift %>>
+						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_width"></span>
+						<span class="slider-fill" data-slider-fill></span>
+					</div>
+				</div>
 
-			<label>Vertical Shift</label>
-			<input type="number" 
-				name="verticalShift" min=-1200 max=1200
-				value=<%= current.in1696.vshift %>>
+				<div class="columns">
+					<label>Height</label>
+					<input type="number" 
+						name="height"
+						id="in1606_height"
+						min=10 max=2400
+						value=<%= current.in1606.height %>>
+					<div class="slider" 
+						data-slider 
+						data-initial-start=<%= current.in1606.height %>
+						data-start="10"
+						data-end="2400">
+
+						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_height"></span>
+						<span class="slider-fill" data-slider-fill></span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="columns">
+					<label>Horizontal Shift</label>
+					<input type="number" 
+						name="horizontalShift"
+						id="in1606_horizontalShift"
+						min=-2048 max=2048
+						value=<%= current.in1606.horizontalShift %>>
+					<div class="slider" 
+						data-slider 
+						data-initial-start=<%= current.in1606.horizontalShift %>
+						data-start="-2048"
+						data-end="2048">
+
+						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_horizontalShift"></span>
+						<span class="slider-fill" data-slider-fill></span>
+					</div>
+				</div>
+
+				<div class="columns">
+					<label>Vertical Shift</label>
+					<input type="number" 
+						name="verticalShift"
+						id="in1606_verticalShift"
+						min=-1200 max=1200
+						value=<%= current.in1606.verticalShift %>>
+					<div class="slider" 
+						data-slider 
+						data-initial-start=<%= current.in1606.verticalShift %>
+						data-start="-1200"
+						data-end="1200">
+
+						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_verticalShift"></span>
+						<span class="slider-fill" data-slider-fill></span>
+					</div>
+				</div>
+			</div>
 		</fieldset>
 
 		<!--
