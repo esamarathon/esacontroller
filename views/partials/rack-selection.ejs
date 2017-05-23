@@ -1,0 +1,56 @@
+<div class="card rack-selection">
+	<fieldset class="fieldset">
+		<legend>Rack</legend>
+		<div class="row">
+			<div class="columns small-6 ">
+				<form method="POST" action="/rack/preset">
+					<label>Presets</label>
+					<select>
+					<%
+						for (let preset of presets) {
+					%>
+
+					<option value="<%=preset%>"><%= preset%></option>
+
+					<% } %>
+					</select>
+					<button type="submit" class="button" name="submit" value="Apply">Apply</button>
+				</form>
+				<button data-open="rack_store_modal" class="button">
+					Store
+				</button>
+				
+			</div>
+			<div class="columns small-6 ">
+				<div>
+					<input type="radio" name="rack" value="all">
+					<label>All racks</label>
+				</div>
+
+				<%
+					const racks = [1,2,3,4];
+					for (let rack of racks) {
+				%>
+				<div>
+					<input 
+						type="radio"
+						name="rack"
+						value="<%= rack%>"
+						<%= rack == current.rackSelection.rack ? "checked" : "" %>>
+					<label>Rack <%= rack%></label>
+				</div>
+			<% } %>
+			</div>
+		</div>
+	</fieldset>
+</div>
+
+<div class="reveal" id="rack_store_modal" data-reveal>
+	<h1>Store Preset</h1>
+	<input id="preset_name" placeholder="name" />
+	<button type="button" id="rack_store_btn" class="button">Save</button>
+
+	<button class="close-button" data-close aria-label="Close modal" type="button">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>

@@ -10,11 +10,11 @@
 		},
 		"templates": {
 			"title": "ESA2016: {game} ({category}) by {playersString}",
-			"description": "Generic Description for {game} {category}.",
+			"description": "Generic Description for {game} {category}.\n\n{twitches}",
 			"keywords": "ESA,ESA2016,{game},{playersString}"
 		},
 		"command": "echo",
-		"parameters": "--title \"{title}\" --desc \"{description}\" --keywords \"{keywords}\" -s {start} -e {end}"
+		"parameters": "-- --title \"{title}\" --desc \"{description}\" --keywords \"{keywords}\" -s {start} -e {end}"
 	},
 	"esavods": {
 		"enable": false,
@@ -24,5 +24,14 @@
 		"host": "localhost",
 		"port": 9090,
 		"key": "ENTER_YOUR_SHARED_KEY_HERE"
+	},
+	"esarack": {
+		"racks": [
+			"localhost",
+			"localhost",
+			"localhost",
+			"localhost"
+		],
+		"port": 8080
 	}
 }

@@ -14,7 +14,7 @@
 			</select>
 		</fieldset>
 
-		<input type="submit" value="Send"/>
+		<button type="submit" class="button" value="Send">Send</button>
 	</form>
 
 	<hr>
@@ -31,7 +31,9 @@
 		<h5 class="capital">warning: dangerous operations. beware!</h5>
 		<form method="POST" action="/rack/crosspoint/reset">
 			<input type="hidden" name="rack" value="1">
-			<input type="submit" value="Reset Ties"/>
+			<button type="submit" class="button alert" value="Reset Ties">
+				Reset Ties
+			</button>
 		</form>
 	</div>
 </div>

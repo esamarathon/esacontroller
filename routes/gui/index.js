@@ -2,6 +2,7 @@ const router = require('express').Router();
 const expressLayouts = require('express-ejs-layouts');
 const body_parser = require('body-parser');
 var config = require('config');
+const fs = require('fs');
 const ESARack = require('../../esarack');
 
 const validation = require('./validation.js')
@@ -9,19 +10,22 @@ const validation = require('./validation.js')
 router.use(expressLayouts);
 
 router.get("/", function (req, res) {
-	res.render('index.html', {
-		presets: getPresets(),
-		current: currentStatus()
+	getPresets(presets => {
+		res.render('index.html', {
+			presets: presets,
+			current: currentStatus()
+		});
 	});
 })
 
-router.use(body_parser.urlencoded({
+const jsonencoded = body_parser.json();
+const urlencoded = body_parser.urlencoded({
     extended: true
-}));
+});
 
-router.post("/rack/crosspoint", deviceForm("Crosspoint", validation.validateCrosspointForm));
+router.post("/rack/crosspoint", urlencoded, deviceForm("Crosspoint", validation.validateCrosspointForm));
 
-router.post("/rack/crosspoint/reset", function(req, res) {
+router.post("/rack/crosspoint/reset", urlencoded, function(req, res) {
 	let params;
 	try {
 		params = validation.validateCrosspointDangerousForm(req.body);
@@ -41,11 +45,29 @@ router.post("/rack/crosspoint/reset", function(req, res) {
 	});
 })
 
-router.post("/rack/in1606", deviceForm("IN1606", validation.validateIN1606Form));
+router.post("/rack/in1606", urlencoded, deviceForm("IN1606", validation.validateIN1606Form));
 
-router.post("/rack/ossc", deviceForm("OSSC", validation.validateOSSCForm));
+router.post("/rack/ossc", urlencoded, deviceForm("OSSC", validation.validateOSSCForm));
 
-router.post("/rack/vp50", deviceForm("VP50", validation.validateVP50Form));
+router.post("/rack/vp50", urlencoded, deviceForm("VP50", validation.validateVP50Form));
+
+router.post("/rack/preset", jsonencoded, function( req, res) {
+	var name = req.body.name
+	if (typeof name == 'undefined' || name == "") {
+		res.status(400);
+		res.json({error: 'invalid name'});
+		return;
+	}
+	fs.writeFile(
+		"presets/" + req.body.name, 
+		JSON.stringify(req.body), 
+		() => {
+			res.json({
+				success: true,
+				name: name
+			})
+		});
+})
 
 
 function deviceForm(device, validation) {
@@ -139,18 +161,23 @@ function updateStatusCache(device, params) {
 }
 
 
-function getPresets() {
-	//Temporary list.
-	return [
-		"NES",
-		"NTSC SNES", 
-		"PAL SNES", 
-		"Genesis", 
-		"Mega Drive", 
-		"Wii", 
-		"PS3", 
-		"PC"
-	]
+function getPresets(callback) {
+	fs.readdir("presets", function(err, files) {
+		if (err != null) {
+			callback([]);
+			return;
+		}
+
+		var pattern = /^(.*)\.json$/
+
+		callback(files.map( file => {
+			const match = pattern.exec(file);
+			if (match != null && match.length > 1) return match[1]
+			else return null;
+		}).filter(file => file != null));
+
+
+	});
 }
 
 

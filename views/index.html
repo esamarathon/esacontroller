@@ -2,49 +2,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada tincidunt
 
 <!-- Replace this with Flexbox magic to allow better balanced sides in large mode, but more important controls at the top in mobile mode. -->
 <div class="controls">
-	<div class="card rack-selection">
-		<fieldset class="fieldset">
-			<legend>Rack</legend>
-			<div class="row">
-				<div class="columns small-6 ">
-					<form method="POST" action="/rack/preset">
-						<label>Presets</label>
-						<select>
-						<%
-							for (let preset of presets) {
-						%>
-
-						<option value="<%=preset%>"><%= preset%></option>
-
-						<% } %>
-						</select>
-						<input type="submit" name="submit" value="Apply">
-						<input type="submit" name="submit" value="Store">
-					</form>
-				</div>
-				<div class="columns small-6 ">
-					<div>
-						<input type="radio" name="rack" value="all">
-						<label>All racks</label>
-					</div>
-
-					<%
-						const racks = [1,2,3,4];
-						for (let rack of racks) {
-					%>
-					<div>
-						<input 
-							type="radio"
-							name="rack"
-							value="<%= rack%>"
-							<%= rack == current.rackSelection.rack ? "checked" : "" %>>
-						<label>Rack <%= rack%></label>
-					</div>
-				<% } %>
-				</div>
-			</div>
-		</fieldset>
-	</div>
+	<%- include('partials/rack-selection') %>
 	<div class="row">
 		<div class="columns small-12 medium-expand" id="crosspoint">
 			<%- include('forms/crosspoint') %>
