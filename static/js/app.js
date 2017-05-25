@@ -1,41 +1,70 @@
 (function($) {
-	console.log("IT IS ALIVE!");
+	/** 
+		Getter functions for each device 
+	**/
 
-	function setRackValue() {
-		const setting = $("#rack-selector-all").is(':checked');
-		if (setting) {
-			$("form input[name=rack]").val("all");
-			$("#rack-selector").attr('disabled', 'disabled');
-			return;
+	function getCrosspointValues() {
+		return {
+			preset: Number.parseInt($('#crosspoint select[name=preset]').val())
 		}
-
-		$("#rack-selector").removeAttr('disabled');
-
-		value = Number($("#rack-selector").val());
-		if (Number.isNaN(value) || value < 1 )  {
-			$("#rack-selector").val(1);
-		} else if (value > 4) {
-			$("#rack-selector").val(4);
-		}
-			
-		$("form input[name=rack]").val($("#rack-selector").val())
 	}
+
+	function getIN1606Values() {
+		return {
+			input: $('#in1606 select[name=input]').val(),
+			width: Number.parseInt($('#in1606 input[name=width]').val(), 10),
+			height: Number.parseInt($('#in1606 input[name=height]').val(), 10),
+			horizontalShift: Number.parseInt($('#in1606 input[name=horizontalShift]').val(), 10),
+			verticalShift: Number.parseInt($('#in1606 input[name=verticalShift]').val(), 10),
+		}
+	}
+
+	function getOSSCValues() {
+		return {
+			input: $('#ossc select[name=input]').val(),
+			interlacePassthrough: $('#ossc input[name=interlacePassthrough]').is(':checked'),
+			lineMultiplier: Number.parseInt($('#ossc input[name=lineMultiplier]:checked').val(), 10)
+		}
+	}
+
+	function getVP50Values() {
+		return {
+			preset: $('#vp50 select[name=preset]').val(),
+			input: $('#vp50 select[name=input]').val(),
+		}
+	}
+
+	function callout(className, message) {
+		return $(`
+		<div class="${className} callout" data-closable>
+		  <h5>Success!</h5>
+		  <p>${message}</p>
+		  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>`);
+	}
+
+	/** Form submit handlers **/
 
 	function storePreset() {
 		const presetName = $('#preset_name').val();
-		$.post("/rack/preset", JSON.stringify({
-			name: presetName, 
-			crosspoint: {
-				preset: 7
-			},
-			ossc: {
-				lineMultiplier: 3
-			}
-		})).always(function() {
+		$.ajax("/rack/preset", {
+			type: 'POST',
+			contentType: "application/json",
+			data: JSON.stringify({
+				name: presetName, 
+				crosspoint: getCrosspointValues(),
+				in1606: getIN1606Values(),
+				ossc: getOSSCValues(),
+				vp50: getVP50Values(),
+			})
+		}).always(function() {
 			$('#rack_store_modal').foundation('close');
 		})
-		.fail(function() {
+		.fail(function(data) {
 			console.log('Failed to store preset.');
+			console.log(data)
 		})
 		.done( function(data, textStatus) {
 			console.log('Successfully stored the preset.');
@@ -44,14 +73,64 @@
 		});
 	}
 
+	function deviceForm(dataFn) {
+		return () => $.ajax("/rack/" + $("input[name='rack']:checked").val(), {
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(dataFn())
+		}).done(data => {
+			$('#messages')
+				.append(callout('success', ""))
+				.foundation();
+		}).fail( data => {
+			$('#messages')
+				.append(callout('alert', "Failed to update the device."))
+				.foundation();
+		})
+	}
 
-
-	$("#rack-selector").change(setRackValue);
-
-	$("#rack-selector-all").change(setRackValue);
 
 	$("#rack_store_btn").click(storePreset);
+	$("#crosspoint_form_submit")
+		.click(
+			deviceForm(() => { return {
+				crosspoint: getCrosspointValues()
+			}
+		})
+	);
 
-	setRackValue();
+	$("#crosspoint_danger_form_submit")
+		.click(
+			deviceForm(() => { return {
+				crosspoint: {
+					resetTies: true
+				}
+			}
+		})
+	);
+
+	$("#in1606_form_submit")
+		.click(
+			deviceForm(() => {return {
+				in1606: getIN1606Values()
+			}
+		})
+	);
+
+	$("#ossc_form_submit")
+		.click(
+			deviceForm(() => { return {
+				ossc: getOSSCValues()
+			}
+		})
+	);
+
+	$("#vp50_form_submit")
+		.click(
+			deviceForm(() => { return {
+				vp50: getVP50Values()
+			}
+		})
+	);
 
 })(jQuery);

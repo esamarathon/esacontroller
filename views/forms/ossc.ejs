@@ -2,8 +2,7 @@
 	<header>
 		<h3>OSSC</h3>
 	</header>
-	<form method="POST" action="/rack/ossc">
-		<input type="hidden" name="rack" value="1">
+	<form>
 		<fieldset>
 			<label>Input</label>
 			<select name="input">
@@ -47,6 +46,10 @@
 		public Boolean lineTripple;
 		-->
 
-		<button type="submit" class="button" value="Send" >Send</button>
+		<button 
+			type="button" 
+			class="button" 
+			value="Send" 
+			id="ossc_form_submit">Send</button>
 	</form>
 </div>

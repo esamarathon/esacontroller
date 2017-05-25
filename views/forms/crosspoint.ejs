@@ -2,8 +2,7 @@
 	<header>
 		<h3>Crosspoint</h3>
 	</header>
-	<form method="POST" action="/rack/crosspoint">
-		<input type="hidden" name="rack" value="1">
+	<form>
 		<fieldset>
 			<label>Preset</label>
 			<select name="preset">
@@ -14,7 +13,8 @@
 			</select>
 		</fieldset>
 
-		<button type="submit" class="button" value="Send">Send</button>
+		<button type="button" class="button" id="crosspoint_form_submit" value="Send">Send</button>
+
 	</form>
 
 	<hr>
@@ -29,9 +29,9 @@
 	<button onclick="$('#crosspoint_dangerous').toggle()" class="warning">Show dangerous operations</button>
 	<div id="crosspoint_dangerous" class="callout warning dangerous">
 		<h5 class="capital">warning: dangerous operations. beware!</h5>
-		<form method="POST" action="/rack/crosspoint/reset">
-			<input type="hidden" name="rack" value="1">
-			<button type="submit" class="button alert" value="Reset Ties">
+		<form>
+			<button type="button" class="button alert" value="Reset Ties"
+			id="crosspoint_danger_form_submit">
 				Reset Ties
 			</button>
 		</form>

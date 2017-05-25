@@ -60,10 +60,6 @@ button.hamburger {
 	padding: 0.5rem;
 	color: $black;
 
-	h4,h5,h6,legend {
-		color: $black;
-	}
-
 	header {
 		background: $primary-color;
 		margin: -0.5rem;
@@ -74,6 +70,12 @@ button.hamburger {
 
 	legend {
 		background-color: inherit;
+	}
+}
+
+.card, .callout {
+	h4,h5,h6,legend {
+		color: $black;
 	}
 }
 

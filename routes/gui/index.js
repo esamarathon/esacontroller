@@ -23,44 +23,76 @@ const urlencoded = body_parser.urlencoded({
     extended: true
 });
 
-router.post("/rack/crosspoint", urlencoded, deviceForm("Crosspoint", validation.validateCrosspointForm));
+// Replace all of these with a single route for applying any setting to any device.
+// Allows more flexible controls.
 
-router.post("/rack/crosspoint/reset", urlencoded, function(req, res) {
+router.post("/rack/:rack(\\d|all)", jsonencoded, function (req, res) {
 	let params;
 	try {
-		params = validation.validateCrosspointDangerousForm(req.body);
+		params =  {
+			crosspoint: validation.Crosspoint(req.body.crosspoint),
+			in1606: validation.IN1606(req.body.in1606),
+			ossc: validation.OSSC(req.body.ossc),
+			vp50: validation.VP50(req.body.vp50)
+		}
 	} catch (msg) {
-		error(res, msg);
+		res.status(400);
+		res.json({
+			error: msg, 
+			body: req.body,
+			rack: req.params.rack
+		});
+		console.log("Validation error.", msg, req.body)
 		return;
 	}
 
-	sendToRacks(
-		params.rack, 
-		"/api/crosspoint", 
-		{resetTies: true});
+	for (const i in params) {
+		if (typeof params[i] == 'undefined' || params[i] == null) {
+			delete params[i];
+		}
+	}
 
-	res.render('index.html', {
-		current: currentStatus(),
-		success: `Successfully reset crosspoint ties.`
+	const rack = req.params.rack === "all" 
+		? "all" 
+		: Number.parseInt(req.params.rack, 10);
+	if (Number.isNaN(rack)) {
+		res.status(400);
+		res.json({
+			error: "Invalid rack definition. ( 1-9 | all )", 
+			body: req.body,
+			rack: req.params.rack
+		});
+		console.log("Rack Validation error.", msg, req.body)
+		return;
+	}
+
+
+	for (const device in params) {
+		if (typeof params[device] == 'undefined') continue;
+		sendToRacks(
+			rack, 
+			"/api/" + device, 
+			params[device]);
+	}
+
+	updateStatusCache(params);
+
+	res.json({
+		body: params,
 	});
-})
-
-router.post("/rack/in1606", urlencoded, deviceForm("IN1606", validation.validateIN1606Form));
-
-router.post("/rack/ossc", urlencoded, deviceForm("OSSC", validation.validateOSSCForm));
-
-router.post("/rack/vp50", urlencoded, deviceForm("VP50", validation.validateVP50Form));
+});
 
 router.post("/rack/preset", jsonencoded, function( req, res) {
-	var name = req.body.name
+	var name = req.body.name;
+	console.log(req.body);
 	if (typeof name == 'undefined' || name == "") {
 		res.status(400);
-		res.json({error: 'invalid name'});
+		res.json({error: 'invalid name', body: req.body});
 		return;
 	}
 	fs.writeFile(
-		"presets/" + req.body.name, 
-		JSON.stringify(req.body), 
+		"presets/" + req.body.name + ".json", 
+		JSON.stringify(req.body, null, '  '), 
 		() => {
 			res.json({
 				success: true,
@@ -69,43 +101,11 @@ router.post("/rack/preset", jsonencoded, function( req, res) {
 		});
 })
 
-
-function deviceForm(device, validation) {
-	return function(req, res) {
-		let params;
-		try {
-			params = validation(req.body);
-		} catch (msg) {
-			error(res, msg);
-			return;
-		}
-
-		const rack = params.rack;
-		delete params["rack"]; //Cleanup to play nicer with later functions.
-
-		// Send command to relevant rack (s).
-		sendToRacks(
-			rack, 
-			"/api/" + device.toLowerCase(), 
-			params);
-
-		updateStatusCache(device, params)
-
-		res.render('index.html', {
-			presets: getPresets(),
-			current: currentStatus(),
-			success: `Successfully changed ${device} settings.`
-		});
-
-	};
-}
-
 /**
 	Sends the parameters to the specified route on the specified rack.
 	If rack is "all", the call will go out to all racks instead of just one.
 */
 function sendToRacks(rack, route, params) {
-	
 	const esarack = new ESARack(config.get('esarack'));
 	if (rack == "all") {
 		for (let i = 0; i < 4; i++) {
@@ -123,7 +123,7 @@ function error(res, msg) {
 	});
 }
 
-const statusCache = {
+var statusCache = {
 	rackSelection: {
 		rack: 1,
 		all: false
@@ -139,13 +139,13 @@ const statusCache = {
 		verticalShift: 0
 	},
 	ossc: {
-		input: "RGBs",
+		input: "",
 		interlacePassthrough: true,
 		lineMultiplier: 2
 	},
 	vp50: {
 		preset: "",
-		input: "HDMI1"
+		input: ""
 	}
 }
 
@@ -155,9 +155,8 @@ function currentStatus() {
 	return statusCache;
 }
 
-function updateStatusCache(device, params) {
-	device = device.toLowerCase();
-	statusCache[device] = Object.assign(statusCache[device] || {}, params);
+function updateStatusCache(params) {
+	statusCache = Object.assign(statusCache || {}, params);
 }
 
 
@@ -179,6 +178,5 @@ function getPresets(callback) {
 
 	});
 }
-
 
 module.exports = router;
