@@ -1,0 +1,25 @@
+{
+	"youtube": {
+		"enable": true,
+		"delay": 2000,
+		"buffers": {
+			"beginning": 5,
+			"end": 120
+		},
+		"command": "echo",
+		"parameters": "--title \"{title}\" --desc \"{description}\" --keywords \"{keywords}\" -s {start} -e {end}"
+	},
+	"speedcontrol": {
+		"host": "localhost",
+		"port": 9090,
+		"key": "ENTER_YOUR_SHARED_KEY_HERE"
+	},
+	"esarack": {
+		"racks": [
+			"10.0.0.11",
+			"10.0.0.12",
+			"localhost",
+			"localhost"
+		]
+	}
+}
