@@ -21,16 +21,16 @@
 		"server": "api.esavods.com"
 	},
 	"speedcontrol": {
-		"host": "localhost",
+		"host": "10.0.0.100",
 		"port": 9090,
 		"key": "ENTER_YOUR_SHARED_KEY_HERE"
 	},
 	"esarack": {
 		"racks": [
-			"localhost",
-			"localhost",
-			"localhost",
-			"localhost"
+			"10.0.0.11",
+			"10.0.0.12",
+			"10.0.0.13",
+			"10.0.0.14"
 		],
 		"port": 8080
 	}
