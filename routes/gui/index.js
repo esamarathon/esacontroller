@@ -82,6 +82,56 @@ router.post("/rack/:rack(\\d|all)", jsonencoded, function (req, res) {
 	});
 });
 
+router.post("/rack/preset/:rack(\\d|all)", jsonencoded, function( req, res) {
+	var name = req.body.name;
+	console.log(req.body);
+	if (typeof name == 'undefined' || name == "") {
+		res.status(400);
+		res.json({error: 'invalid name', body: req.body});
+		return;
+	}
+
+	const rack = req.params.rack === "all" 
+		? "all" 
+		: Number.parseInt(req.params.rack, 10);
+	if (Number.isNaN(rack)) {
+		res.status(400);
+		res.json({
+			error: "Invalid rack definition. ( 1-9 | all )", 
+			body: req.body,
+			rack: req.params.rack
+		});
+		console.log("Rack Validation error.", msg, req.body)
+		return;
+	}
+
+	fs.readFile("presets/" + name + ".json", (err, data) => {
+		if (err) {
+			res.json({
+				success: false,
+				name: name,
+				error: err
+			});
+			return
+		}
+
+		const presetObj = JSON.parse(data);
+
+		for (const device in presetObj) {
+			if (typeof presetObj[device] == 'undefined') continue;
+			sendToRacks(
+				rack, 
+				"/api/" + device, 
+				presetObj[device]);
+		}
+
+		res.json({
+			success: true,
+			name: name
+		});
+	})
+});
+
 router.post("/rack/preset", jsonencoded, function( req, res) {
 	var name = req.body.name;
 	console.log(req.body);
