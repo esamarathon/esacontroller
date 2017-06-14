@@ -17,6 +17,7 @@ app.use("/", require("./routes/gui"));
 
 const listen_port = config.port || 3333;
 app.listen(listen_port, function() {
+	console.log(config);
     console.log("ESA Controller is listening on port", listen_port, ".")
 })
 

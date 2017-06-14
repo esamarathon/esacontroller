@@ -8,14 +8,62 @@
 			<select name="input">
 				<option value="">No change</option>
 				<% 
-					const options = ["RGBs", "RGsB", "RGBHV", "RGBH"];
+					const options = [
+						{
+							name: "AV1: RGBS",
+							value: "av1_rgbs"
+						}, 
+						{
+							name: "AV1: RGsB",
+							value: "av1_rgsb"
+						},
+						{
+							name: "AV1: YPbPr",
+							value: "av1_ypbpr"
+						},
+						{
+							name: "AV2: YPbPr",
+							value: "av2_ypbpr"
+						},
+						{
+							name: "AV2: RGsB",
+							value: "av2_rgsb"
+						},
+						{
+							name: "AV3: RGBHV",
+							value: "av3_rgbhv"
+						},
+						{
+							name: "AV3: RGBS",
+							value: "av3_rgbs"
+						},
+						{
+							name: "AV3: RGsB",
+							value: "av3_rgsb"
+						},
+						{
+							name: "AV3: YPbPr",
+							value: "av3_ypbpr"
+						}
+					];
 					for (let opt of options) {
 				%>
-				<option <%= opt.toLowerCase() === current.ossc.input.toLowerCase() ? "selected" : "" %>><%= opt %></option>
+				<option <%= opt.value.toLowerCase() === current.ossc.input.toLowerCase() ? "selected" : "" %>
+					value="<%= opt.value %>"><%= opt.name %></option>
 				<% } %>
 			</select>
 		</fieldset>
 
+		<fieldset>
+			<label>Preset</label>
+			<select>
+			<option value="">No Change</option>
+			<option value="0">Interlace Passtrough; Line x3</option>
+			<option value="1">Interlace Passtrough; Line x2</option>
+			</select>
+		</fieldset>
+
+		<!--
 		<fieldset>
 			<label>Interlace Passthrough</label>
 			<input type="checkbox" name="interlacePassthrough" <%= current.ossc.interlacePassthrough ? "checked" : "" %>>
@@ -40,6 +88,8 @@
 			<% } %>
 
 		</fieldset>
+
+		-->
 
 		<!--
 		public Boolean interlacePassthrough;

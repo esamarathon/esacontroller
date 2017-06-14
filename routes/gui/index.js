@@ -91,13 +91,13 @@ router.post("/rack/preset", jsonencoded, function( req, res) {
 		return;
 	}
 	fs.writeFile(
-		"presets/" + req.body.name + ".json", 
+		"presets/" + name + ".json", 
 		JSON.stringify(req.body, null, '  '), 
 		() => {
 			res.json({
 				success: true,
 				name: name
-			})
+			});
 		});
 })
 
