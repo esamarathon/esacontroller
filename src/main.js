@@ -78,6 +78,7 @@ const Cropper = (function($, d3) {
 			onChange();
 		}
 	}
+
 	function vStarted() {
 		var circle = d3.select(this).classed("dragging", true);
 		d3.event.on("drag", dragged).on("end", ended);
@@ -96,6 +97,53 @@ const Cropper = (function($, d3) {
 		}
 		function ended() {
 			circle.classed("dragging", false);
+			onChange();
+		}
+	}
+
+	function areaStarted() {
+		var area = d3.select(this).classed("dragging", true);
+		d3.event.on("drag", dragged).on("end", ended);
+		function dragged() {
+			const oldBounds = getBounds();
+			const xOffset = oldBounds.width/2;
+			const yOffset = oldBounds.height/2;
+			const newX = d3.event.x;
+			const newY = d3.event.y;
+
+			const vlines = $(".vline").sort( (a, b) => a.x1.baseVal.value > b.x1.baseVal.value);
+			const hlines = $(".hline").sort( (a, b) => a.y1.baseVal.value > b.y1.baseVal.value);
+
+
+			if (!($("input[name=lockX]").is(':checked'))) {
+				d3.select(vlines[0]).raise().attr("x1", newX-xOffset).attr("x2", newX-xOffset)
+				d3.select(vlines[vlines.length-1]).raise().attr("x1", newX+xOffset).attr("x2", newX+xOffset);
+			}
+
+			if (!($("input[name=lockY]").is(':checked'))) {
+				d3.select(hlines[0]).raise().attr("y1", newY-yOffset).attr("y2", newY-yOffset)
+				d3.select(hlines[hlines.length-1]).raise().attr("y1", newY+yOffset).attr("y2", newY+yOffset);
+			}
+
+			const bounds = getBounds();
+			if (bounds.width < 10 || //Begin X checks
+				bounds.width > 4096 ||
+				bounds.startX < -2048 ||
+				bounds.startX > 2048 || //End X checks
+				bounds.height < 10 ||  //begin Y checks
+				bounds.height > 2400 ||
+				bounds.startY < -1200 ||
+				bounds.startY > 1200) { //End Y checks
+				d3.select(vlines[0]).raise().attr("x1", oldBounds.startX).attr("x2", oldBounds.startX)
+				d3.select(vlines[vlines.length-1]).raise().attr("x1", oldBounds.startX + oldBounds.width).attr("x2", oldBounds.startX + oldBounds.width);
+				d3.select(hlines[0]).raise().attr("y1", oldBounds.startY).attr("y2", oldBounds.startY)
+				d3.select(hlines[vlines.length-1]).raise().attr("y1", oldBounds.startY + oldBounds.height).attr("y2", oldBounds.startY + oldBounds.height);
+			}
+
+			updateBox(getBounds());
+		}
+		function ended() {
+			area.classed("dragging", false);
 			onChange();
 		}
 	}
@@ -120,6 +168,7 @@ const Cropper = (function($, d3) {
 	// What a drag...
 	d3.selectAll(".hline").call(d3.drag().on("start", hStarted));
 	d3.selectAll(".vline").call(d3.drag().on("start", vStarted));
+	d3.selectAll("#croppedArea").call(d3.drag().on("start", areaStarted));
 
 	return {
 		getBounds: getBounds,
@@ -209,10 +258,10 @@ const Cropper = (function($, d3) {
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(dataFn())
-		}).done(data => {
-			$('#messages')
-				.append(callout('success', ""))
-				.foundation();
+		//}).done(data => {
+		//	$('#messages')
+		//		.append(callout('success', ""))
+		//		.foundation();
 		}).fail( data => {
 			$('#messages')
 				.append(callout('alert', "Failed to update the device."))
@@ -266,22 +315,22 @@ const Cropper = (function($, d3) {
 
 	Cropper.setOnChange( () => {
 		const bounds = Cropper.getBounds();
-		const osscParams = {
+		const in1606Params = {
 			width: Math.round(bounds.width),
 			height: Math.round(bounds.height),
 			horizontalShift: Math.round(bounds.startX),
 			verticalShift: Math.round(bounds.startY)
 		};
 
-		$('#in1606 input[name=width]').val(osscParams.width);
-		$('#in1606 input[name=height]').val(osscParams.height);
-		$('#in1606 input[name=horizontalShift]').val(osscParams.horizontalShift);
-		$('#in1606 input[name=verticalShift]').val(osscParams.verticalShift);
+		$('#in1606 input[name=width]').val(in1606Params.width);
+		$('#in1606 input[name=height]').val(in1606Params.height);
+		$('#in1606 input[name=horizontalShift]').val(in1606Params.horizontalShift);
+		$('#in1606 input[name=verticalShift]').val(in1606Params.verticalShift);
 
 		deviceForm(() => { return {
-			ossc: osscParams
-		}});
-		console.log(osscParams);
+			in1606: in1606Params
+		}})();
+		console.log(in1606Params);
 	});
 
 })(jQuery);
