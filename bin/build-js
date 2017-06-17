@@ -3,3 +3,7 @@ mkdir -p static/js/vendor
 cp node_modules/foundation-sites/dist/js/foundation.js static/js/vendor/foundation.js
 cp node_modules/jquery/dist/jquery.js static/js/vendor/jquery.js
 cp node_modules/what-input/dist/what-input.js static/js/vendor/what-input.js
+cp node_modules/d3/build/d3.js static/js/vendor/d3.js
+
+cat src/*.js > static/js/app.js
+#tsc --module amd --out static/app.js src/main.ts

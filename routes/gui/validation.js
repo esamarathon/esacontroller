@@ -51,7 +51,7 @@ function isString(value) {
 }
 
 function isNumberOpt(value, min, max) {
-	num = Number(value || Number.NaN);
+	num = Number(value || 0);
 	if (Number.isNaN(value) || value > (max || 999999) || value < (min || -999999)) {
 		return null;
 	}

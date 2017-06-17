@@ -183,8 +183,8 @@ var statusCache = {
 	},
 	in1606: {
 		input: 0,
-		width: 10,
-		height: 10,
+		width: 4096,
+		height: 2400,
 		horizontalShift: 0,
 		verticalShift: 0
 	},

@@ -9,9 +9,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon -e js -x \"npm run debug\"",
     "prestart": "npm run build:js && npm run build:css",
+    "predebug": "npm run build:js && npm run build:css",
     "build:css": "node-sass --include-path scss --include-path node_modules/foundation-sites/scss scss/main.scss static/app.css",
     "watch:css": "nodemon -e scss -x \"npm run build:css\"",
-    "build:js": "sh bin/build-js"
+    "build:js": "sh bin/build-js",
+    "watch:js": "nodemon -e ts -x \"npm run build:js\""
   },
   "dependencies": {
     "body-parser": "^1.15.1",
@@ -19,7 +21,9 @@
     "ejs": "^2.5.6",
     "express": "^4.13.3",
     "express-ejs-layouts": "^2.3.0",
+    "jquery": "3.1.1",
     "foundation-sites": "^6.3.1",
+    "d3": "^4.9.1",
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
     "promise": "^7.1.1",
@@ -37,5 +41,9 @@
   "bugs": {
     "url": "https://github.com/zephyyrr/esacontroller/issues"
   },
-  "homepage": "https://github.com/zephyyrr/esacontroller#readme"
+  "homepage": "https://github.com/zephyyrr/esacontroller#readme",
+  "devDependencies": {
+    "@types/jquery": "^3.1.1",
+    "typescript": "^2.3.4"
+  }
 }

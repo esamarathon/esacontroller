@@ -5,6 +5,8 @@
 
 @include foundation-everything(true);
 
+@import 'chropper';
+
 .container {
 	background: url("/static/img/background.png");
 	background-position: center;
@@ -141,6 +143,9 @@ button.warning {
 
 	#vp50 {
 		order: 15;
+	}
+	#cropper {
+		order: 99;
 	}
 }
 

@@ -1,0 +1,20 @@
+svg.chopper {
+	background-color: gray;
+	width: 100%;
+	max-width: 2048px;
+}
+
+line {
+	stroke-width: 25;
+	stroke-dasharray: 30,5;
+	stroke: black;
+	z-index: -1;
+}
+
+line:hover, line.dragging {
+	stroke: rgb(100, 0, 0);
+}
+
+rect.area {
+	fill: rgba(70, 200, 70, 0.6);
+}
