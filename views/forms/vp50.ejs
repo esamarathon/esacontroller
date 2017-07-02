@@ -5,7 +5,7 @@
 	<form>
 		<fieldset>
 			<label>Preset</label>
-			<select name="preset">
+			<select name="preset" onchange="VP50.setInput($(this).val())">
 				<option value="">No change</option>
 				<% for (var i = 1; i < 13; i++) { %>
 					<option <%= i === current.vp50.preset ? "selected" : "" %>><%= i %></option>
@@ -15,7 +15,7 @@
 
 		<fieldset>
 			<label>Input</label>
-			<select name="input">
+			<select name="input" onchange="VP50.setInput($(this).val())">
 				<option selected value="">No change</option>
 				<% 
 					const options = [
@@ -44,12 +44,5 @@
 				<% } %>
 			</select>
 		</fieldset>
-
-		<!--
-		public Integer preset;
-		public String input;
-		-->
-
-		<button type="button" class="button" value="Send" id="vp50_form_submit">Send</button>
 	</form>
 </div>
