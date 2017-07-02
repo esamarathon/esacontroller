@@ -8,8 +8,19 @@
 			<select name="preset" 
 			onchange="Crosspoint.setPreset($(this).val())">
 				<option value="">No change</option>
+				<%
+					const presets = [
+						"RGB",
+						"Component",
+						"HDMI Console",
+						"PC"
+					]
+				%>
+
 				<% for (var i = 1; i < 13; i++) { %>
-					<option value="<%=i%>" <%= i == current.crosspoint.preset ? "selected" : "" %>> <%= i %></option>
+					<option value="<%=i%>" <%= i == current.crosspoint.preset ? "selected" : "" %>>
+					<%= i %>: <%= presets[i-1] || "Unknown" %>
+					</option>
 				<% } %>
 			</select>
 		</fieldset>
