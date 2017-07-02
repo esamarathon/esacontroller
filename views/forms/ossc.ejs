@@ -5,7 +5,8 @@
 	<form>
 		<fieldset>
 			<label>Input</label>
-			<select name="input">
+			<select name="input"
+			onchange="OSSC.setInput($(this).val())">
 				<option value="">No change</option>
 				<% 
 					const options = [
@@ -56,50 +57,12 @@
 
 		<fieldset>
 			<label>Preset</label>
-			<select>
-			<option value="">No Change</option>
-			<option value="0">Interlace Passtrough; Line x3</option>
-			<option value="1">Interlace Passtrough; Line x2</option>
+			<select name="preset" onchange="OSSC.setPreset($(this).val())">
+				<option value="">No Change</option>
+				<option value="0">Interlace Passtrough; Line x3</option>
+				<option value="1">Interlace Passtrough; Line x2</option>
 			</select>
 		</fieldset>
 
-		<!--
-		<fieldset>
-			<label>Interlace Passthrough</label>
-			<input type="checkbox" name="interlacePassthrough" <%= current.ossc.interlacePassthrough ? "checked" : "" %>>
-		</fieldset>
-
-		<fieldset class="fieldset">
-			<legend>Line Multipler</legend>
-
-			<%
-				const multiplers = [2,3,4,5];
-				for (let mult of multiplers) {
-			%>
-		
-			<label>Line x<%= mult%></label>
-			<input 
-				type="radio" 
-				name="lineMultiplier" 
-				value="<%= mult%>"
-				<%= mult == current.ossc.lineMultiplier ? "checked" : "" %>>
-			<br />
-
-			<% } %>
-
-		</fieldset>
-
-		-->
-
-		<!--
-		public Boolean interlacePassthrough;
-		public Boolean lineTripple;
-		-->
-
-		<button 
-			type="button" 
-			class="button" 
-			value="Send" 
-			id="ossc_form_submit">Send</button>
 	</form>
 </div>

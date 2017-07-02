@@ -279,40 +279,6 @@ const Cropper = (function($, d3) {
 		})
 	);
 
-	$("#crosspoint_danger_form_submit")
-		.click(
-			deviceForm(() => { return {
-				crosspoint: {
-					resetTies: true
-				}
-			}
-		})
-	);
-
-	$("#in1606_form_submit")
-		.click(
-			deviceForm(() => {return {
-				in1606: getIN1606Values()
-			}
-		})
-	);
-
-	$("#ossc_form_submit")
-		.click(
-			deviceForm(() => { return {
-				ossc: getOSSCValues()
-			}
-		})
-	);
-
-	$("#vp50_form_submit")
-		.click(
-			deviceForm(() => { return {
-				vp50: getVP50Values()
-			}
-		})
-	);
-
 	Cropper.setOnChange( () => {
 		const bounds = Cropper.getBounds();
 		const in1606Params = {

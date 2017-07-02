@@ -5,8 +5,7 @@
 	<form>
 		<fieldset>
 			<label>Input</label>
-			<select name="input">
-				<option value="">No change</option>
+			<select name="input" onchange="IN1606.setInput($(this).val())">
 				<% for (var i = 1; i < 7; i++) { %>
 					<option <%= i == current.in1606.input ? "selected" : "" %>><%= i %></option>
 				<% } %>
@@ -23,18 +22,8 @@
 						name="width" 
 						min=10 max=4096
 						id="in1606_width"
-						value=<%= current.in1606.width %>>
-					<!--
-					<div class="slider" 
-						data-slider 
-						data-initial-start=<%= current.in1606.width %>
-						data-start="10"
-						data-end="4096">
-
-						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_width"></span>
-						<span class="slider-fill" data-slider-fill></span>
-					</div>
-					-->
+						value=<%= current.in1606.width %>
+						onchange="IN1606.setWidth($(this).val())">
 				</div>
 
 				<div class="columns">
@@ -43,18 +32,8 @@
 						name="height"
 						id="in1606_height"
 						min=10 max=2400
-						value=<%= current.in1606.height %>>
-					<!--
-					<div class="slider" 
-						data-slider 
-						data-initial-start=<%= current.in1606.height %>
-						data-start="10"
-						data-end="2400">
-
-						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_height"></span>
-						<span class="slider-fill" data-slider-fill></span>
-					</div>
-					-->
+						value=<%= current.in1606.height %>
+						onchange="IN1606.setHeight($(this).val())">
 				</div>
 			</div>
 			<div class="row">
@@ -64,18 +43,8 @@
 						name="horizontalShift"
 						id="in1606_horizontalShift"
 						min=-2048 max=2048
-						value=<%= current.in1606.horizontalShift %>>
-					<!--
-					<div class="slider" 
-						data-slider 
-						data-initial-start=<%= current.in1606.horizontalShift %>
-						data-start="-2048"
-						data-end="2048">
-
-						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_horizontalShift"></span>
-						<span class="slider-fill" data-slider-fill></span>
-					</div>
-					-->
+						value=<%= current.in1606.horizontalShift %>
+						onchange="IN1606.setHPoz($(this).val())">
 				</div>
 
 				<div class="columns">
@@ -84,28 +53,10 @@
 						name="verticalShift"
 						id="in1606_verticalShift"
 						min=-1200 max=1200
-						value=<%= current.in1606.verticalShift %>>
-					<!--
-					<div class="slider" 
-						data-slider 
-						data-initial-start=<%= current.in1606.verticalShift %>
-						data-start="-1200"
-						data-end="1200">
-
-						<span class="slider-handle"  data-slider-handle role="slider" tabindex="1" aria-controls="in1606_verticalShift"></span>
-						<span class="slider-fill" data-slider-fill></span>
-					</div>
-					-->
+						value=<%= current.in1606.verticalShift %>
+						onchange="IN1606.setVPoz($(this).val())">
 				</div>
 			</div>
 		</fieldset>
-
-		<!--
-		public int contrast;
-		public int brightness;
-		-->
-
-		<button type="button" class="button" value="Send" 
-			id="in1606_form_submit">Send</button>
 	</form>
 </div>

@@ -5,16 +5,14 @@
 	<form>
 		<fieldset>
 			<label>Preset</label>
-			<select name="preset">
+			<select name="preset" 
+			onchange="Crosspoint.setPreset($(this).val())">
 				<option value="">No change</option>
 				<% for (var i = 1; i < 13; i++) { %>
 					<option value="<%=i%>" <%= i == current.crosspoint.preset ? "selected" : "" %>> <%= i %></option>
 				<% } %>
 			</select>
 		</fieldset>
-
-		<button type="button" class="button" id="crosspoint_form_submit" value="Send">Send</button>
-
 	</form>
 
 	<hr>
@@ -31,7 +29,8 @@
 		<h5 class="capital">warning: dangerous operations. beware!</h5>
 		<form>
 			<button type="button" class="button alert" value="Reset Ties"
-			id="crosspoint_danger_form_submit">
+			id="crosspoint_danger_form_submit"
+			onclick="Crosspoint.resetTies()">
 				Reset Ties
 			</button>
 		</form>

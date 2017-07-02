@@ -78,6 +78,7 @@ const Cropper = (function($, d3) {
 			onChange();
 		}
 	}
+
 	function vStarted() {
 		var circle = d3.select(this).classed("dragging", true);
 		d3.event.on("drag", dragged).on("end", ended);
