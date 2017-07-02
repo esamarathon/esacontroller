@@ -6,8 +6,21 @@
 		<fieldset>
 			<label>Input</label>
 			<select name="input" onchange="IN1606.setInput($(this).val())">
+				<%
+					const inputs = [
+						"RGB/Component pass-through",
+						"HDMI Console",
+						"RGB/Component via OSSC",
+						"PC",
+						"Unknown",
+						"Unknown... Here be dragons."
+					]
+				%>
+
 				<% for (var i = 1; i < 7; i++) { %>
-					<option <%= i == current.in1606.input ? "selected" : "" %>><%= i %></option>
+					<option <%= i == current.in1606.input ? "selected" : "" %>>
+					<%= i %>: <%= inputs[i-1] ||Unknown %>
+					</option>
 				<% } %>
 			</select>
 		</fieldset>
