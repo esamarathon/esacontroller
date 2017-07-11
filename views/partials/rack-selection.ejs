@@ -1,11 +1,12 @@
 <div class="card rack-selection">
 	<fieldset class="fieldset">
-		<legend>Rack</legend>
+		<legend>Global</legend>
 		<div class="row">
 			<div class="columns small-6 ">
-				<form method="POST" action="/rack/preset">
+				<form>
 					<label>Presets</label>
-					<select>
+					<select onchange="Presets.recall($(this).val())">
+					<option value="">No change</option>
 					<%
 						for (let preset of presets) {
 					%>
@@ -14,7 +15,6 @@
 
 					<% } %>
 					</select>
-					<button type="submit" class="button" name="submit" value="Apply">Apply</button>
 				</form>
 				<button data-open="rack_store_modal" class="button">
 					Store

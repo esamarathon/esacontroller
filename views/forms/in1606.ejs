@@ -18,7 +18,7 @@
 				%>
 
 				<% for (var i = 1; i < 7; i++) { %>
-					<option <%= i == current.in1606.input ? "selected" : "" %>>
+					<option value=<%=i%> <%= i == current.in1606.input ? "selected" : "" %>>
 					<%= i %>: <%= inputs[i-1] ||Unknown %>
 					</option>
 				<% } %>

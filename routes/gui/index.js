@@ -82,6 +82,9 @@ router.post("/rack/:rack(\\d|all)", jsonencoded, function (req, res) {
 	});
 });
 
+/** 
+*  Read preset from file.
+**/
 router.post("/rack/preset/:rack(\\d|all)", jsonencoded, function( req, res) {
 	var name = req.body.name;
 	console.log(req.body);
@@ -127,7 +130,8 @@ router.post("/rack/preset/:rack(\\d|all)", jsonencoded, function( req, res) {
 
 		res.json({
 			success: true,
-			name: name
+			name: name,
+			values: presetObj
 		});
 	})
 });

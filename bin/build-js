@@ -6,5 +6,5 @@ cp node_modules/what-input/dist/what-input.js static/js/vendor/what-input.js
 cp node_modules/d3/build/d3.js static/js/vendor/d3.js
 
 cat src/main.js > static/js/app.js
-cat src/components/ESAController.js src/components/devices/*.js > static/js/app2.js
+cat src/components/ESAController.js src/components/devices/*.js src/components/Cropper.js src/components/Presets.js > static/js/app2.js
 #tsc --module amd --out static/app.js src/main.ts
