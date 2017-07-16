@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node esacontroller.js",
     "debug": "sh bin/debug",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "watch": "nodemon -e js -x \"npm run debug\"",
     "prestart": "npm run build:js && npm run build:css",
     "predebug": "npm run build:js && npm run build:css",
@@ -44,6 +44,10 @@
   "homepage": "https://github.com/zephyyrr/esacontroller#readme",
   "devDependencies": {
     "@types/jquery": "^3.1.1",
+    "mocha": "^3.4.2",
+    "mock-req": "^0.2.0",
+    "mock-res": "^0.5.0",
+    "sinon": "^2.3.8",
     "typescript": "^2.3.4"
   }
 }
