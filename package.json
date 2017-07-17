@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node esacontroller.js",
     "debug": "sh bin/debug",
-    "test": "mocha",
+    "test": "mocha --recursive",
     "watch": "nodemon -e js -x \"npm run debug\"",
     "prestart": "npm run build:js && npm run build:css",
     "predebug": "npm run build:js && npm run build:css",

@@ -39,6 +39,8 @@ function buildCommand(cmd, params, data) {
     Split out to separate Youtube package later
 ***/
 function simplify(data) {
+    if (typeof(data.players) === 'undefined') return data;
+
     const concat = function(join, final) {
         return function(total, part, i, array) {
             if (i == array.length-1 && array.length > 1) return total + final + part;
@@ -59,6 +61,7 @@ function simplify(data) {
         if (player.twitch === "") {
             return false;
         }
+        return true;
     }).map(function(player) {
         return player.name + " " + player.twitch;
     }).reduce(concat("\\n", "\\n"), "");
