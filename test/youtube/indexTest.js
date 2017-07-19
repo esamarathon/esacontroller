@@ -1,6 +1,9 @@
 assert = require("assert");
 var sinon = require('sinon');
 
+var config = require('config');
+var child_process = require('child_process');
+
 Youtube = require("../../youtube");
 
 describe("Youtube Upload feature", function() {
@@ -107,6 +110,62 @@ describe("Youtube Upload feature", function() {
 			const actual = Youtube.simplify( obj );
 
 			assert.equal(expected, actual.playersString);
-		})
+		});
+	});
+
+	describe("Upload", function() {
+		beforeEach(function() {
+			this.getConfig = sinon.stub(config, 'get');
+			this.exec = sinon.stub(child_process, 'exec');
+		});
+
+		afterEach(function() {
+			config.get.restore();
+			child_process.exec.restore();
+		});
+
+		it("Returns a promise", function() {
+			this.getConfig.returns({
+				command: "",
+				parameters: "",
+				templates: {
+					title: "",
+					description: "",
+					keywords: ""
+				},
+				buffers: {},
+			});
+
+			const result = Youtube.uploadToYoutube({
+				start: 0,
+				end: 0
+			});
+
+			assert(typeof(result.then) === 'function');
+		});
+
+		it("calls exec once", function() {
+			this.getConfig.returns({
+				command: "",
+				parameters: "",
+				templates: {
+					title: "",
+					description: "",
+					keywords: ""
+				},
+				buffers: {},
+			});
+
+			this.exec.callsFake(function(cmd, callback) {
+				callback(null, "");
+			});
+
+			return Youtube.uploadToYoutube({
+				start: 0,
+				end: 0
+			}).then(function() {
+				assert(child_process.exec.calledOnce);
+			});
+		});
 	});
 });
