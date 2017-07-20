@@ -117,11 +117,13 @@ describe("Youtube Upload feature", function() {
 		beforeEach(function() {
 			this.getConfig = sinon.stub(config, 'get');
 			this.exec = sinon.stub(child_process, 'exec');
+			this.buildCommand = sinon.stub(Youtube, 'buildCommand');
 		});
 
 		afterEach(function() {
 			config.get.restore();
 			child_process.exec.restore();
+			Youtube.buildCommand.restore();
 		});
 
 		it("Returns a promise", function() {
@@ -156,7 +158,10 @@ describe("Youtube Upload feature", function() {
 				buffers: {},
 			});
 
+			this.buildCommand.returns("");
+
 			this.exec.callsFake(function(cmd, callback) {
+				console.log("Calling callback!");
 				callback(null, "");
 			});
 
@@ -165,6 +170,8 @@ describe("Youtube Upload feature", function() {
 				end: 0
 			}).then(function() {
 				assert(child_process.exec.calledOnce);
+			}).catch(function(error) {
+				assert.fail(error);
 			});
 		});
 	});
