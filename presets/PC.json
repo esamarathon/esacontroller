@@ -1,0 +1,10 @@
+{
+	"crosspoint": {
+		"preset": 4
+	},
+	"in1606": {
+		"input": 4,
+		"autoImage": true,
+	}
+
+}
