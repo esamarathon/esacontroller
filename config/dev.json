@@ -16,8 +16,8 @@
 	},
 	"esarack": {
 		"racks": [
-			"10.0.0.11",
-			"10.0.0.12",
+			"localhost",
+			"localhost",
 			"localhost",
 			"localhost"
 		]
