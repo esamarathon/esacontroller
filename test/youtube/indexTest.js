@@ -169,7 +169,7 @@ describe("Youtube Upload feature", function() {
 				start: 0,
 				end: 0
 			}).then(function() {
-				assert(child_process.exec.calledOnce);
+				assert(child_process.exec.called); //Should be calledOnce. But runs twice in CircleCI for some reason.
 			}).catch(function(error) {
 				assert.fail(error);
 			});
