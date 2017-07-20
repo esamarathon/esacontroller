@@ -1,0 +1,12 @@
+{
+	"crosspoint": {
+		"preset": 2
+	},
+	"in1606": {
+		"input": 3,
+		"horizontalShift": -92,
+		"width": 2083,
+		"verticalShift": -58,
+		"height": 1156
+	} 
+}
