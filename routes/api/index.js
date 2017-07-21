@@ -26,6 +26,11 @@ app.post("/speedcontrol-event", function(req, res) {
         return;
     }
 
+    if (typeof(runData) === 'undefined' || typeof(runData.start) === 'undefined' || runData.start <= 0) {
+        console.log("Run invalid. Start time is nonsensical." );
+        return;
+    }
+
     //TODO "Massage" run-data into a more convenient format.
     runData = youtube.simplify(runData);
 
