@@ -22,12 +22,14 @@ app.post("/speedcontrol-event", function(req, res) {
     if (eventData.event == "runStarted") {
         var runData = eventData.oldrun;
     } else {
+
         res.status(200).json("OK");
         return;
     }
 
     if (typeof(runData) === 'undefined' || typeof(runData.start) === 'undefined' || runData.start <= 0) {
         console.log("Run invalid. Start time is nonsensical." );
+        res.status(400).json("Non-sensical run data.");
         return;
     }
 
@@ -37,7 +39,13 @@ app.post("/speedcontrol-event", function(req, res) {
 
     console.log(JSON.stringify(runData));
     if (config.has('youtube') && config.get('youtube').enable) {
-        youtube.uploadToYoutube(runData);   
+        youtube.uploadToYoutube(runData)
+        .catch(function(error) {
+            console.log("Error occured:", error);
+            res.status(400).json(error);
+        }).then(function() {
+            console.log("Success!")
+        });   
     }
 
     // One day I will include automatic submission to esavods.com
