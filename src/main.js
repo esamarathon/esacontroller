@@ -100,6 +100,7 @@
 		})
 	);
 
+	/*
 	Cropper.setOnChange( () => {
 		const bounds = Cropper.getBounds();
 		const in1606Params = {
@@ -119,5 +120,5 @@
 		}})();
 		console.log(in1606Params);
 	});
-
+	*/
 })(jQuery);

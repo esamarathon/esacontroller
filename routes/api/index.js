@@ -22,7 +22,6 @@ app.post("/speedcontrol-event", function(req, res) {
     if (eventData.event == "runStarted") {
         var runData = eventData.oldrun;
     } else {
-
         res.status(200).json("OK");
         return;
     }

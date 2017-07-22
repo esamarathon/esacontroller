@@ -15,11 +15,24 @@ exports.IN1606 = body => {
 		res.preset = body.preset;
 	}
 
-	res.input = isNumberOpt(body.input, 1, 6);
-	res.width = isNumberOpt(body.width, 10, 4096);
-	res.height = isNumberOpt(body.height, 10, 2400);
-	res.horizontalShift = isNumberOpt(body.horizontalShift, -2048, 2048);
-	res.verticalShift = isNumberOpt(body.verticalShift, -1200, 1200);
+	if (body.input != undefined) {
+		res.input = isNumberOpt(body.input, 1, 6);
+	}
+	if (body.autoimage != undefined) {
+		res.autoimage = isBoolean(body.autoimage);
+	}
+	if (body.width != undefined) {
+		res.width = isNumberOpt(body.width, 10, 4096);
+	}
+	if (body.height != undefined) {
+		res.height = isNumberOpt(body.height, 10, 2400);
+	}
+	if (body.horizontalShift != undefined) {
+		res.horizontalShift = isNumberOpt(body.horizontalShift, -2048, 2048);
+	}
+	if (body.verticalShift != undefined) {
+		res.verticalShift = isNumberOpt(body.verticalShift, -1200, 1200);
+	}
 
 	return res;
 }
@@ -27,9 +40,15 @@ exports.IN1606 = body => {
 exports.OSSC = body => {
 	if (typeof body === 'undefined') return undefined;
 	const res = {};
-	res.input = isString(body.input);
-	res.interlacePassthrough = isBoolean(body.interlacePassthrough);
-	res.lineMultiplier = isNumberOpt(body.lineMultiplier, 1, 5);
+	if (body.input != undefined) {
+		res.input = isString(body.input);
+	}
+	if (body.interlacePassthrough != undefined) {
+		res.interlacePassthrough = isBoolean(body.interlacePassthrough);
+	}
+	if (body.lineMultiplier != undefined) {
+		res.lineMultiplier = isNumberOpt(body.lineMultiplier, 1, 5);
+	}
 	return res;
 
 }
@@ -37,8 +56,12 @@ exports.OSSC = body => {
 exports.VP50 = body => {
 	if (typeof body === 'undefined') return undefined;
 	const res = {};
-	res.preset = isNumberOpt(body.preset);
-	res.input = isString(body.input);
+	if (body.preset != undefined) {
+		res.preset = isNumberOpt(body.preset);
+	}
+	if (body.input != undefined) {
+		res.input = isString(body.input);
+	}
 	return res;
 }
 
