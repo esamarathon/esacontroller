@@ -18,8 +18,8 @@ exports.IN1606 = body => {
 	if (body.input != undefined) {
 		res.input = isNumberOpt(body.input, 1, 6);
 	}
-	if (body.autoimage != undefined) {
-		res.autoimage = isBoolean(body.autoimage);
+	if (body.executeAutoImage != undefined) {
+		res.executeAutoImage = isBoolean(body.executeAutoImage);
 	}
 	if (body.width != undefined) {
 		res.width = isNumberOpt(body.width, 10, 4096);

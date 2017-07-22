@@ -128,7 +128,7 @@ router.post("/rack/preset/:rack(\\d|all)", jsonencoded, function( req, res) {
 				presetObj[device]);
 		}
 
-		updateStatusCache(presetObj);
+		//updateStatusCache(presetObj);
 
 		res.json({
 			success: true,
