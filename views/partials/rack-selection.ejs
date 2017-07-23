@@ -45,12 +45,58 @@
 	</fieldset>
 </div>
 
+<script type="text/javascript">
+	function storePresetFromGUI() {
+		Presets.store($("#preset_name").val(), 
+		{
+			crosspoint: {
+				preset: $("#crosspoint select[name=preset]").val()
+			},
+			in1606: {
+				input: $("#in1606 select[name=input]").val(),
+				width: $("#in1606 input[name=width]").val(),
+				height: $("#in1606 input[name=height]").val(),
+				horizontalShift: $("#in1606 input[name=horizontalShift]").val(),
+				verticalShift: $("#in1606 input[name=verticalShift]").val()
+			},
+			ossc: {
+				input: $("#ossc select[name=input]").val(),
+				preset: $("#ossc select[name=preset]").val()
+			},
+			vp50: {
+				input: $("#vp50 select[name=input]").val(),
+				preset: $("#vp50 select[name=preset]").val()
+			}
+
+		}).always(function() {
+			$('#rack_store_modal').foundation('close');
+		})
+		.fail(function(data) {
+			console.log('Failed to store preset.');
+			console.log(data)
+		})
+		.done( function(data, textStatus) {
+			console.log('Successfully stored the preset.');
+			console.log(textStatus);
+			console.log(data);
+		});
+	}
+</script>
+
 <div class="reveal" id="rack_store_modal" data-reveal>
 	<h1>Store Preset</h1>
 	<input id="preset_name" placeholder="name" />
-	<button type="button" id="rack_store_btn" class="button">Save</button>
+	<button 
+		type="button" 
+		id="rack_store_btn" 
+		class="button" 
+		onclick="storePresetFromGUI()">
+		Save
+	</button>
 
 	<button class="close-button" data-close aria-label="Close modal" type="button">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
+
+

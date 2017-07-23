@@ -28,9 +28,26 @@ Presets = (function ($, ESAController) {
 
 	}
 
+	function store(name, values) {
+		if (typeof(name) !== 'string') {
+			throw "Name must be a string."
+		}
 
+		return $.ajax("/rack/preset", {
+			type: 'POST',
+			contentType: "application/json",
+			data: JSON.stringify({
+				name: name, 
+				crosspoint: values["crosspoint"],
+				in1606: values["in1606"],
+				ossc: values["ossc"],
+				vp50: values["vp50"],
+			})
+		});
+	}
 
 	return {
-		recall: recall
+		recall: recall,
+		store: store
 	}
 })(jQuery, ESAController)
