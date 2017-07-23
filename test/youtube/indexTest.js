@@ -174,5 +174,42 @@ describe("Youtube Upload feature", function() {
 				assert.fail(error);
 			});
 		});
+
+		it("Includes both calculated templates and the original run data", function() {
+			const expected = {
+					title: "",
+					description: "",
+					keywords: "",
+					start: -15,
+					end: 15,
+					game: "game title"
+				};
+
+			this.getConfig.returns({
+				command: "",
+				parameters: "",
+				templates: {
+					title: "",
+					description: "",
+					keywords: ""
+				},
+				buffers: {},
+			});
+
+			var data = null;
+			Youtube.buildCommand.calledWith("", "", expected);
+
+			this.exec.callsFake(function(cmd, callback) {
+				callback(null, "");
+			});
+
+			return Youtube.uploadToYoutube({
+				game: "game title",
+				start: 0,
+				end: 0
+			}).then(function() {
+				assert(Youtube.buildCommand.calledOnce)
+			});
+		})
 	});
 });

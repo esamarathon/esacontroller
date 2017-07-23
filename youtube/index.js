@@ -7,14 +7,16 @@ var config = require('config');
 ***/
 function uploadToYoutube(run) {
     const conf = config.get('youtube');
-    const youtube_metadata = {
+    const metadata = {
         title: format(conf.templates.title, run),
         description: format(conf.templates.description, run),
         keywords: format(conf.templates.keywords, run),
         start: Math.floor(run.start-(conf.buffers.beginning || 15)),
-        end: Math.floor(run.end+(conf.buffers.end || 15))
+        end: Math.floor(run.end+(conf.buffers.end || 15)),
     };
-    const command = buildCommand(conf.command, conf.parameters, youtube_metadata)
+
+    const youtube_metadata = Object.assign(run, metadata);
+    const command = module.exports.buildCommand(conf.command, conf.parameters, youtube_metadata)
 
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
