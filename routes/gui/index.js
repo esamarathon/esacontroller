@@ -5,6 +5,7 @@ var config = require('config');
 const fs = require('fs');
 const ESARack = require('../../esarack');
 
+
 const validation = require('./validation.js')
 
 router.use(expressLayouts);
@@ -203,7 +204,7 @@ var statusCache = {
 		preset: "",
 		input: ""
 	}
-}
+};
 
 
 function currentStatus() {
@@ -212,10 +213,11 @@ function currentStatus() {
 }
 
 function updateStatusCache(params) {
-	statusCache = statusCache || {};
-	for (const device of params) {
-		statusCache[device] = Object.assign(statusCache[device] || {}, params);
-	}
+	var cache = currentStatus();
+		for (const device in params) {
+			cache[device] = Object.assign(cache[device] || {}, params[device]);
+		}
+	statusCache = cache;
 }
 
 

@@ -45,7 +45,7 @@
 						name="width" 
 						min=10 max=4096
 						id="in1606_width"
-						value=<%= current.in1606.width %>
+						value=<%= current.in1606.width || 0 %>
 						onchange="IN1606.setWidth($(this).val())">
 				</div>
 
@@ -55,7 +55,7 @@
 						name="height"
 						id="in1606_height"
 						min=10 max=2400
-						value=<%= current.in1606.height %>
+						value=<%= current.in1606.height || 0 %>
 						onchange="IN1606.setHeight($(this).val())">
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 						name="horizontalShift"
 						id="in1606_horizontalShift"
 						min=-2048 max=2048
-						value=<%= current.in1606.horizontalShift %>
+						value=<%= current.in1606.horizontalShift || 0 %>
 						onchange="IN1606.setHPoz($(this).val())">
 				</div>
 
@@ -76,7 +76,7 @@
 						name="verticalShift"
 						id="in1606_verticalShift"
 						min=-1200 max=1200
-						value=<%= current.in1606.verticalShift %>
+						value=<%= current.in1606.verticalShift || 0 %>
 						onchange="IN1606.setVPoz($(this).val())">
 				</div>
 			</div>
