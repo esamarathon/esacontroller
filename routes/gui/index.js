@@ -128,14 +128,14 @@ router.post("/rack/preset/:rack(\\d|all)", jsonencoded, function( req, res) {
 				presetObj[device]);
 		}
 
-		//updateStatusCache(presetObj);
+		updateStatusCache(presetObj);
 
 		res.json({
 			success: true,
 			name: name,
 			values: presetObj
 		});
-	})
+	});
 });
 
 router.post("/rack/preset", jsonencoded, function( req, res) {
@@ -212,7 +212,10 @@ function currentStatus() {
 }
 
 function updateStatusCache(params) {
-	statusCache = Object.assign(statusCache || {}, params);
+	statusCache = statusCache || {};
+	for (const device of params) {
+		statusCache[device] = Object.assign(statusCache[device] || {}, params);
+	}
 }
 
 
