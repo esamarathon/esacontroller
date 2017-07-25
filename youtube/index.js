@@ -15,8 +15,10 @@ function uploadToYoutube(run) {
         end: Math.floor(run.end+(conf.buffers.end || 15)),
     };
 
+    metadata.safeTitle = metadata.title.replace("/", "");
+
     const youtube_metadata = Object.assign(run, metadata);
-    const command = module.exports.buildCommand(conf.command, conf.parameters, youtube_metadata)
+    const command = module.exports.buildCommand(conf.command, conf.parameters, youtube_metadata).replace("\\", "\\\\")
 
     return new Promise(function(resolve, reject) {
         setTimeout(function() {

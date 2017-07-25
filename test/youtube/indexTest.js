@@ -27,7 +27,7 @@ describe("Youtube Upload feature", function() {
 			const expected = " ";
 			const actual = Youtube.buildCommand("", "{nonexisting}", {});
 			assert.equal(expected, actual);
-		})
+		});
 
 		it("passes the given command without changing it", function() {
 			const expected = "command: echo --verbose -(\\) "
@@ -137,6 +137,7 @@ describe("Youtube Upload feature", function() {
 				},
 				buffers: {},
 			});
+			Youtube.buildCommand.returns("");
 
 			const result = Youtube.uploadToYoutube({
 				start: 0,
@@ -178,6 +179,7 @@ describe("Youtube Upload feature", function() {
 		it("Includes both calculated templates and the original run data", function() {
 			const expected = {
 					title: "",
+					safeTitle: "",
 					description: "",
 					keywords: "",
 					start: -15,
@@ -197,7 +199,8 @@ describe("Youtube Upload feature", function() {
 			});
 
 			var data = null;
-			Youtube.buildCommand.calledWith("", "", expected);
+			
+			Youtube.buildCommand.returns("");
 
 			this.exec.callsFake(function(cmd, callback) {
 				callback(null, "");
@@ -209,7 +212,47 @@ describe("Youtube Upload feature", function() {
 				end: 0
 			}).then(function() {
 				assert(Youtube.buildCommand.calledOnce)
+				assert(Youtube.buildCommand.calledWith("", "", expected));
 			});
-		})
+		});
+
+		it("Includes a safeTitle property that is filename safe.", function() {
+			const expected = {
+					title: "Super Mario Sunshine: Zero Mission [ All Keys / Any%] by Planks",
+					safeTitle: "Super Mario Sunshine: Zero Mission [ All Keys  Any%] by Planks",
+					description: "",
+					keywords: "",
+					start: -15,
+					end: 15,
+					game: "game title"
+				};
+
+			this.getConfig.returns({
+				command: "",
+				parameters: "",
+				templates: {
+					title: "Super Mario Sunshine: Zero Mission [ All Keys / Any%] by Planks",
+					description: "",
+					keywords: ""
+				},
+				buffers: {},
+			});
+
+			var data = null;
+			
+			Youtube.buildCommand.returns("");
+
+			this.exec.callsFake(function(cmd, callback) {
+				callback(null, "");
+			});
+
+			return Youtube.uploadToYoutube({
+				game: "game title",
+				start: 0,
+				end: 0
+			}).then(function() {
+				assert.deepEqual(Youtube.buildCommand.getCall(0).args[2], expected);
+			});
+		});
 	});
 });
