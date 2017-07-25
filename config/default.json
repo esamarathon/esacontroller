@@ -2,10 +2,10 @@
 	"port": 3333,
 	"youtube": {
 		"enable": true,
-		"delay": 600000,
+		"delay": 0,
 		"buffers": {
-			"beginning": 12,
-			"end": 300
+			"beginning": 0,
+			"end": 0
 		},
 		"templates": {
 			"title": "#ESA17 Speedruns - {game} [{category}] by {playersString}",
@@ -13,15 +13,15 @@
 			"keywords": "ESA,ESA2017,EuropeanSpeedrunnerAssembly,{game},{playersString}"
 		},
 		"command": "/usr/bin/nice",
-		"parameters": "-n 10 /usr/local/bin/esaupload --twitch -c \"/home/tech/esacontroller/youtube_publish_cache.txt\" -g \"{game}\" -t \"{title}\" -d \"{description}\" -k \"{keywords}\" -m \"/mnt/data/recordings_moved/{title}\" -s {start} -e {end} -o \"/mnt/data/recordings_moved/output_{title}.mp4\" /mnt/data/recordings_sorted"
+		"parameters": "-n 15 /home/tech/.local/bin/esaupload -l /home/tech/upload_log.txt --twitch -c \"/home/tech/esacontroller/youtube_publish_cache.txt\" -g \"{game}\" -t \"{title}\" -d \"{description}\" -k \"{keywords}\" -s {start} -e {end} -o \"/data/record_converted/output_{safeTitle}.mp4\" /data/record_sorted"
 	},
 	"esavods": {
 		"enable": false,
 		"server": "api.esavods.com"
 	},
 	"speedcontrol": {
-		"key": "<CHANGE THIS>",
-		"host": "10.0.0.99",
+		"key": "ENTER_YOUR_SHARED_KEY_HERE",
+		"host": "10.0.0.100",
 		"port": 9090
 	},
 	"esarack": {
