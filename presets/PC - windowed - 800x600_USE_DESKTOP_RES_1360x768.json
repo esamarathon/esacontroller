@@ -1,0 +1,19 @@
+{
+  "name": "PC - windowed - 800x600_USE_DESKTOP_RES_1360x768",
+  "crosspoint": {
+    "preset": "4"
+  },
+    "width": "3284",
+    "height": "1385",
+    "horizontalShift": "-848",
+    "verticalShift": "-200"
+  },
+  "ossc": {
+    "input": "",
+    "preset": "0"
+  },
+  "vp50": {
+    "input": "",
+    "preset": ""
+  }
+}

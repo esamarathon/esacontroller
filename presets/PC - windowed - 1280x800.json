@@ -1,0 +1,19 @@
+{
+  "name": "PC - windowed - 1280x800",
+  "crosspoint": {
+    "preset": "4"
+  },
+    "width": "2881",
+    "height": "1459",
+    "horizontalShift": "-485",
+    "verticalShift": "-225"
+  },
+  "ossc": {
+    "input": "",
+    "preset": "0"
+  },
+  "vp50": {
+    "input": "",
+    "preset": ""
+  }
+}
