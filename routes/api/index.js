@@ -6,7 +6,7 @@ var app = express.Router();
 
 app.use(body_parser.json());
 
-const speedcontrol_repeat_filter = false;
+var speedcontrol_repeat_filter = false;
 app.post("/speedcontrol-event", function(req, res) {
     if (speedcontrol_repeat_filter === true) {
         console.log("Speed filter triggered. Slow down the marathon.", req);
