@@ -15,8 +15,9 @@ app.post("/speedcontrol-event", function(req, res) {
 
     speedcontrol_repeat_filter = true;
     setTimeout(function() {
+        console.log("Resetting SpeedControl filter.")
         speedcontrol_repeat_filter = false;
-    }, 2000);
+    }, 30*1000);
 
     console.log(req.body);
     logic.speedcontrol_event(req, res)
