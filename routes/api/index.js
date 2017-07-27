@@ -6,7 +6,21 @@ var app = express.Router();
 
 app.use(body_parser.json());
 
-app.post("/speedcontrol-event", logic.speedcontrol_event);
+const speedcontrol_repeat_filter = false;
+app.post("/speedcontrol-event", function(req, res) {
+    if (speedcontrol_repeat_filter === true) {
+        console.log("Speed filter triggered. Slow down the marathon.", req);
+        res.status(409).json("Speed filter triggered. Slow down the marathon.");
+    }
+
+    speedcontrol_repeat_filter = true;
+    timeout(function() {
+        speedcontrol_repeat_filter = false;
+    }, 2000);
+
+    console.log(req.body);
+    logic.speedcontrol_event(req, res)
+});
 
 app.get("/bigredbutton/:id", logic.unimplemented);
 

@@ -14,7 +14,6 @@ function getRunData(eventData) {
 
 function speedcontrol_event(req, res) {
     var eventData = req.body;
-    console.log(eventData);
     if (config.get("speedcontrol").key != undefined && 
         req.get("API-Key") !== config.get("speedcontrol").key) {
         res.status(403).json("Wrong Key");
