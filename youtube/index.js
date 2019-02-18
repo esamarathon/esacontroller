@@ -58,7 +58,7 @@ function simplify(data) {
     data.twitches = data.players.map(function(player) {
         if (player.twitch) {
             return {twitch: player.twitch.uri || "",
-                    name:   player.names.international
+                    name:   player.name
                    };
         } else {
             return "";
@@ -73,7 +73,7 @@ function simplify(data) {
     }).reduce(concat("\\n", "\\n"), "");
     
     data.players = data.players.map(function(player) {
-        return player.names.international || "some dude";
+        return player.name || "some dude";
     })
     data.playersString = data.players.reduce(concat(", ", " and "), "");
 
