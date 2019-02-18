@@ -67,7 +67,7 @@ function bigredbutton(req, res) {
 
     var speedcontrol = new SpeedControl(config.get('speedcontrol'));
 
-    const id = parseInt(req.params.id, 10);
+    let id = parseInt(req.params.id, 10);
     if (isNaN(id) || id < 1) {
         console.log("bigredbutton was sent a bad Id.");
         return res.status(403).json({
@@ -90,6 +90,10 @@ function bigredbutton(req, res) {
     }, 2000);
 
     speedcontrol.timers().then(function(timers) {
+        if (timers.length === 1) {
+            id = 1;
+        }
+            
         if (id > timers.length) {
             console.log("bigredbutton: Player does not exits in this run.");
             return res.status(403).json({
