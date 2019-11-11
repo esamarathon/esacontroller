@@ -56,8 +56,8 @@ function simplify(data) {
     }
     
     data.twitches = data.players.map(function(player) {
-        if (player.twitch) {
-            return {twitch: player.twitch.uri || "",
+        if (player.social && player.social.twitch) {
+            return {twitch: "https://www.twitch.tv/" + player.social.twitch.uri,
                     name:   player.name
                    };
         } else {
