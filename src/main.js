@@ -13,25 +13,6 @@
 		return {
 			input: $('#in1606 select[name=input]').val(),
 			preset: $('#in1606 select[name=preset]').val(),
-			width: Number.parseInt($('#in1606 input[name=width]').val(), 10),
-			height: Number.parseInt($('#in1606 input[name=height]').val(), 10),
-			horizontalShift: Number.parseInt($('#in1606 input[name=horizontalShift]').val(), 10),
-			verticalShift: Number.parseInt($('#in1606 input[name=verticalShift]').val(), 10),
-		}
-	}
-
-	function getOSSCValues() {
-		return {
-			input: $('#ossc select[name=input]').val(),
-			interlacePassthrough: $('#ossc input[name=interlacePassthrough]').is(':checked'),
-			lineMultiplier: Number.parseInt($('#ossc input[name=lineMultiplier]:checked').val(), 10)
-		}
-	}
-
-	function getVP50Values() {
-		return {
-			preset: $('#vp50 select[name=preset]').val(),
-			input: $('#vp50 select[name=input]').val(),
 		}
 	}
 
@@ -57,8 +38,6 @@
 				name: presetName, 
 				crosspoint: getCrosspointValues(),
 				in1606: getIN1606Values(),
-				ossc: getOSSCValues(),
-				vp50: getVP50Values(),
 			})
 		}).always(function() {
 			$('#rack_store_modal').foundation('close');
