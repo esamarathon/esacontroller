@@ -14,7 +14,8 @@ router.get("/", function (req, res) {
 	getPresets(presets => {
 		res.render('index.html', {
 			presets: presets,
-			current: currentStatus()
+			current: currentStatus(),
+			racks: config.esarack.racks.map((x, i) => i+1)
 		});
 	});
 })
