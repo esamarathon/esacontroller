@@ -16,6 +16,8 @@ ESARack.prototype.call = function(rack, options, body) {
     options.port = this.port;
     options.headers['Content-Type'] = 'application/json';
 
+    console.log({rack: rack, options: options, body: body});
+
     return new Promise(function (fulfill, reject) {
         var req = http.request(options, function(response) {
             var body = '';

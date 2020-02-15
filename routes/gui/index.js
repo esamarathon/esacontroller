@@ -30,6 +30,7 @@ const urlencoded = body_parser.urlencoded({
 
 router.post("/rack/:rack(\\d|all)", jsonencoded, function (req, res) {
 	let params;
+	console.log({"rack": req.params.rack, "body": req.body});
 	try {
 		params =  {
 			crosspoint: validation.Crosspoint(req.body.crosspoint),
@@ -89,7 +90,7 @@ router.post("/rack/:rack(\\d|all)", jsonencoded, function (req, res) {
 **/
 router.post("/rack/preset/:rack(\\d|all)", jsonencoded, function( req, res) {
 	var name = req.body.name;
-	console.log(req.body);
+	console.log({"rack": req.params.rack, "body": req.body});
 	if (typeof name == 'undefined' || name == "") {
 		res.status(400);
 		res.json({error: 'invalid name', body: req.body});
@@ -167,10 +168,14 @@ function sendToRacks(rack, route, params) {
 	const esarack = new ESARack(config.get('esarack'));
 	if (rack == "all") {
 		for (let i = 0; i < config.esarack.racks.length; i++) {
-			esarack.command(i, route, params);
+			esarack.command(i, route, params)
+				.then(console.log("Set rack " + i + " to " + JSON.stringify(params)))
+				.catch(console.log("Failed to set rack " + i + "."));
 		}
 	} else {
-		esarack.command(rack-1, route, params);
+		esarack.command(rack-1, route, params)
+			.then(console.log("Set rack " + i + " to " + JSON.stringify(params)))
+			.catch(console.log("Failed to set rack " + i + "."));
 	}
 }
 
