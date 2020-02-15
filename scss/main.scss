@@ -1,9 +1,4 @@
 @import 'util/util';
-@import 'settings';
-@import 'foundation';
-
-
-@include foundation-everything(true);
 
 .container {
 	background: url("/static/img/background.png");

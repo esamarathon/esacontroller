@@ -8,48 +8,31 @@
 		<link rel="stylesheet" type="text/css" href="/static/app.css">
 	</head>
 	<body>
-		<div class="off-canvas position-left" id="offCanvas" data-off-canvas>
-			<button class="close-button" aria-label="Close menu" type="button" data-close>
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<%- include('partials/navigation') %>
-		</div>
-		<div class="container off-canvas-content" data-off-canvas-content>
-			<header class="small-12 columns">
-				<!-- Button for opening the off-canvas -->
-				<button type="button" aria-label="Open menu" class="button hamburger" data-toggle="offCanvas">
-				</button>
-
-				<h1 class="logo">
-					<a href="/">
-						<img src="/static/img/esalogo.png"><span>Controller</span>
-					</a>
-				</h1>
-			</header>
-			<div class="row">
-				<%- include('partials/messages') %>
-				<div class="columns small-12 medium-8 ">
-					<%- body %>
-				</div>
-				<aside class="columns small-12 medium-4">
-					<%- asideArea %>
-				</aside>
+		<header class="small-12 columns">
+			<h1 class="logo">
+				<a href="/">
+					<img src="/static/img/esalogo.png"><span>Controller</span>
+				</a>
+			</h1>
+		</header>
+		<div class="row">
+			<%- include('partials/messages') %>
+			<div class="columns small-12 medium-8 ">
+				<%- body %>
 			</div>
-
-			<footer>
-				<div class="row">
-					<%- include('partials/footerlinks')%>
-				</div>
-				<div class="row">
-					Design by Johan "Zephyyrr" Fogelström 2017.
-				</div>
-			</footer>
 		</div>
+
+		<footer>
+			<div class="row">
+				<%- include('partials/footerlinks')%>
+			</div>
+			<div class="row">
+				Design by Johan "Zephyyrr" Fogelström 2017.
+			</div>
+		</footer>
 
 		<script type="text/javascript" src="/static/js/vendor/jquery.js"></script>
-		<script type="text/javascript" src="/static/js/vendor/what-input.js"></script>
-		<script type="text/javascript" src="/static/js/vendor/foundation.js"></script>
-		<script type="text/javascript" src="/static/js/vendor/d3.js"></script>
+		<!--<script type="text/javascript" src="/static/js/vendor/foundation.js"></script>-->
 
 		<script type="text/javascript" src="/static/js/app2.js"></script>
 		<!--<script type="text/javascript" src="/static/js/app.js"></script>-->
