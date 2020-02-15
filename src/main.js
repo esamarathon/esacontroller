@@ -79,10 +79,6 @@
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(dataFn())
-		//}).done(data => {
-		//	$('#messages')
-		//		.append(callout('success', ""))
-		//		.foundation();
 		}).fail( data => {
 			$('#messages')
 				.append(callout('alert', "Failed to update the device."))
@@ -99,26 +95,4 @@
 			}
 		})
 	);
-
-	/*
-	Cropper.setOnChange( () => {
-		const bounds = Cropper.getBounds();
-		const in1606Params = {
-			width: Math.round(bounds.width),
-			height: Math.round(bounds.height),
-			horizontalShift: Math.round(bounds.startX),
-			verticalShift: Math.round(bounds.startY)
-		};
-
-		$('#in1606 input[name=width]').val(in1606Params.width);
-		$('#in1606 input[name=height]').val(in1606Params.height);
-		$('#in1606 input[name=horizontalShift]').val(in1606Params.horizontalShift);
-		$('#in1606 input[name=verticalShift]').val(in1606Params.verticalShift);
-
-		deviceForm(() => { return {
-			in1606: in1606Params
-		}})();
-		console.log(in1606Params);
-	});
-	*/
 })(jQuery);

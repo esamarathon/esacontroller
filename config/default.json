@@ -1,29 +1,5 @@
 {
 	"port": 3333,
-	"youtube": {
-		"enable": true,
-		"delay": 0,
-		"buffers": {
-			"beginning": 0,
-			"end": 0
-		},
-		"templates": {
-			"title": "#ESA17 Speedruns - {game} [{category}] by {playersString}",
-			"description": "Generic Description for {game} {category}.\n\n{twitches}",
-			"keywords": "ESA,ESA2017,EuropeanSpeedrunnerAssembly,{game},{playersString}"
-		},
-		"command": "/usr/bin/nice",
-		"parameters": "-n 15 /home/tech/.local/bin/esaupload -l /home/tech/upload_log.txt --twitch -c \"/home/tech/esacontroller/youtube_publish_cache.txt\" -g \"{game}\" -t \"{title}\" -d \"{description}\" -k \"{keywords}\" -s {start} -e {end} -o \"/data/record_converted/output_{safeTitle}.mp4\" /data/record_sorted"
-	},
-	"esavods": {
-		"enable": false,
-		"server": "api.esavods.com"
-	},
-	"speedcontrol": {
-		"key": "ENTER_YOUR_SHARED_KEY_HERE",
-		"host": "10.0.0.100",
-		"port": 9090
-	},
 	"esarack": {
 		"racks": [
 			"10.0.0.11",
