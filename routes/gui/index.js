@@ -166,7 +166,7 @@ router.post("/rack/preset", jsonencoded, function( req, res) {
 function sendToRacks(rack, route, params) {
 	const esarack = new ESARack(config.get('esarack'));
 	if (rack == "all") {
-		for (let i = 0; i < 4; i++) {
+		for (let i = 0; i < config.esarack.racks.length; i++) {
 			esarack.command(i, route, params);
 		}
 	} else {
