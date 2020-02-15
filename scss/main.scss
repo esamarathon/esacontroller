@@ -1,4 +1,15 @@
-@import 'util/util';
+
+$primary-color: rgb(118,63,142);
+$secondary-color:rgb(231,192,26);
+$success-color: #3adb76;
+$warning-color: #ffae00;
+$alert-color: #cc4b37;
+
+$light-gray: #e6e6e6;
+$medium-gray: #cacaca;
+$dark-gray: #8a8a8a;
+$black: #0a0a0a;
+$white: #fefefe;
 
 .container {
 	background: url("/static/img/background.png");
@@ -6,19 +17,38 @@
 	background-repeat: no-repeat;
 }
 
+body > header {
+	margin-top: 0;
+}
+
 header {
 	background: $dark-gray;
 	border-bottom: 2px solid $secondary-color;
 	margin-bottom: 1rem;
+	color: $white;
+
+	h1 {
+		margin: 0;
+		font-size: 300%;
+	}
+	h3 {
+		margin: 0;
+		font-size: 200%;
+	}
 }
 
 body {
+	background: $black;
+	color: $white;
+	margin: 0;
+	padding: 0;
 	footer {
 		background-color: $primary-color;
 		border-top: 2px solid $secondary-color;
-		margin-top: 1rem;
+		margin-top: 10rem;
 		padding: 0.5rem;
 		color: $white;
+	
 
 		a {
 			color: $white;
@@ -34,6 +64,22 @@ body {
 	}
 }
 
+.menu {
+	li {
+		list-style: none;
+		margin: 0 0.5rem;
+	}
+}
+
+ul.horizontal {
+	display: flex;
+	flex-direction: row;
+}
+
+a {
+	text-decoration: none;
+}
+
 .logo {
 	span {
 		color: white;
@@ -44,23 +90,16 @@ body {
 	}
 }
 
-button.hamburger {
-	@include hamburger($white, $light-gray, 2rem, 2rem, rem-calc(6px), 3);
-	float: left;
-	margin: 1rem 0.5rem 0 0;
-	background-color: inherit;
-}
-
 .card {
-	padding: 0.5rem;
+	padding: 0 0.5rem 0.5rem;
 	color: $black;
+	background: $white;
+	margin: 1rem;
 
 	header {
 		background: $primary-color;
-		margin: -0.5rem;
-		margin-bottom: 0.5rem;
-		padding-left: 0.5rem;
-
+		margin: 0.5rem -0.5rem;
+		padding: 0.5rem;
 	}
 
 	legend {
@@ -85,6 +124,10 @@ button.hamburger {
 button {
 	padding-top: 0.3rem;
 	padding-bottom: 0.3rem;
+	background: $primary-color;
+	color: $white;
+	border: none;
+	padding: 0.5rem 1rem;
 }
 
 button.warning {
@@ -114,12 +157,6 @@ button.warning {
 	}
 
 	.card {
-		min-width: 14rem;
-		height: 97%;
-
-		&.rack-selection {
-			flex-basis: 100%;
-		}
 	}
 
 	#crosspoint {
@@ -144,4 +181,52 @@ button.warning {
 
 label {
 	display: inline-block;
+}
+
+select {
+	width: 100%;
+}
+
+.reveal {
+	display: none;
+}
+
+fieldset {
+	margin: 1rem 0;
+}
+
+.row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.columns {
+	box-sizing: border-box;
+}
+.small-6 {
+	width: 50%;
+}
+
+.small-12 {
+	width: 100%;
+}
+
+@media(min-width:700px) {
+	.medium-3 {
+		width: 25%;
+	}
+
+	.medium-4 {
+		width: 33.33%;
+	}
+
+	.medium-6 {
+		width: 50%;
+	}
+
+	.medium-8 {
+		width: 66.66%;
+	}
 }

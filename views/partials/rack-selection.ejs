@@ -1,4 +1,4 @@
-<div class="card rack-selection">
+<div class="card rack-selection small-12">
 	<fieldset class="fieldset">
 		<legend>Global</legend>
 		<div class="row">
@@ -16,13 +16,14 @@
 					<% } %>
 					</select>
 				</form>
+				<!--
 				<button data-open="rack_store_modal" class="button">
 					Store
 				</button>
-				
+				-->
 			</div>
-			<div class="columns small-6 ">
-				<div>
+			<div class="columns small-6 row">
+				<div class="small-12">
 					<input type="radio" name="rack" value="all">
 					<label>All racks</label>
 				</div>
@@ -31,7 +32,7 @@
 					const racks = [1,2,3,4];
 					for (let rack of racks) {
 				%>
-				<div>
+				<div class="small-12">
 					<input 
 						type="radio"
 						name="rack"
@@ -83,7 +84,7 @@
 	}
 </script>
 
-<div class="reveal" id="rack_store_modal" data-reveal>
+<div class="reveal" id="rack_store_modal">
 	<h1>Store Preset</h1>
 	<input id="preset_name" placeholder="name" />
 	<button 
