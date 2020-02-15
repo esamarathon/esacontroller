@@ -1,0 +1,6 @@
+static
+node_modules
+.circleci
+Dockerfile
+docker-compose.yml
+.dockerignore
