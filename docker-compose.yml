@@ -5,4 +5,16 @@ services:
     build: .
     ports:
       - "3333:3333"
+  rack1:
+    image: "esamarathon/esarack:latest"
+    environment: 
+      - "ESARACK_MODE=demo"
+  rack2:
+    image: "esamarathon/esarack:latest"
+    environment: 
+      - "ESARACK_MODE=demo"
+  rack3:
+    image: "esamarathon/esarack:latest"
+    environment: 
+      - "ESARACK_MODE=demo"
     

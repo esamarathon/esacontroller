@@ -16,9 +16,9 @@
 	},
 	"esarack": {
 		"racks": [
-			"localhost",
-			"localhost",
-			"localhost"
+			"rack1",
+			"rack2",
+			"rack3"
 		]
 	}
 }
