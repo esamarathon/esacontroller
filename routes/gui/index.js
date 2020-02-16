@@ -174,8 +174,8 @@ function sendToRacks(rack, route, params) {
 		}
 	} else {
 		esarack.command(rack-1, route, params)
-			.then(console.log("Set rack " + i + " to " + JSON.stringify(params)))
-			.catch(console.log("Failed to set rack " + i + "."));
+			.then(console.log("Set rack " + rack + " to " + JSON.stringify(params)))
+			.catch(console.log("Failed to set rack " + rack + "."));
 	}
 }
 
