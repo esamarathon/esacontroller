@@ -170,12 +170,18 @@ function sendToRacks(rack, route, params) {
 		for (let i = 0; i < config.esarack.racks.length; i++) {
 			esarack.command(i, route, params)
 				.then(console.log("Set rack " + i + " to " + JSON.stringify(params)))
-				.catch(console.log("Failed to set rack " + i + "."));
+				.catch(function (e) {
+					console.log("Failed to set rack " + i + ". Message: ");
+					console.log(e);
+				});
 		}
 	} else {
 		esarack.command(rack-1, route, params)
 			.then(console.log("Set rack " + rack + " to " + JSON.stringify(params)))
-			.catch(console.log("Failed to set rack " + rack + "."));
+			.catch(function (e) {
+				console.log("Failed to set rack " + rack + ". Message: ");
+				console.log(e);
+			});
 	}
 }
 
